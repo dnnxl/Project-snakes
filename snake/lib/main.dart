@@ -27,8 +27,8 @@ class MyApp extends StatelessWidget {
         "/encr": (BuildContext context) => InCR(),
         "/aprendamos": (BuildContext context) => Learn(),
         "/contactos": (BuildContext context) => Contacts(),
-        "/acercade": (BuildContext context) => About(),
-
+        //"/acercade": (BuildContext context) => About(),
+        "/acercade": (BuildContext context) =>Sightning(),
         "/ojos": (BuildContext context) => Eyes(),
         "/cabeza": (BuildContext context) => Head(),
         "/escamas": (BuildContext context) => Scales(),
@@ -39,12 +39,15 @@ class MyApp extends StatelessWidget {
 }
 
 class Begin extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
+    Color c1 = const Color(0xFFFFFF);
     return new Scaffold(
       backgroundColor: Colors.black,
+
       body: Container(
-        padding: EdgeInsets.only(top: 30, bottom: 10, right: 418, left: 60),
+        padding: EdgeInsets.only(top: 30, bottom: 10, right: 350, left: 40),
         decoration: BoxDecoration(
           image: DecorationImage(
               image: AssetImage('images/actividad_main.jpg'),
@@ -60,21 +63,18 @@ class Begin extends StatelessWidget {
                   children: <Widget>[
                     Padding(
                       padding: EdgeInsets.all(10),
-                      child: RaisedButton(
-                        color: Colors.green,
+
+                      child: RaisedButton.icon(
+                        icon: Image.asset('images/encr.png' ,width: 150,height: 60,),
+                        color: c1,
+
+                          label: Text("",style: TextStyle(
+                              color: Colors.transparent, fontSize: 0.0)),
                         shape: new RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10.0)),
                         onPressed: () {
                           Navigator.pushNamed(context, "/encr");
                         },
-                        child: SizedBox(
-                          width: 70,
-                          height: 30,
-                          child: Center(
-                            child:
-                            Text("En Costa Rica", textAlign: TextAlign.center),
-                          ),
-                        ),
                       ),
                     )
                   ],
@@ -83,21 +83,24 @@ class Begin extends StatelessWidget {
                   children: <Widget>[
                     Padding(
                       padding: EdgeInsets.all(10),
-                      child: RaisedButton(
-                        color: Colors.green,
+                      child: RaisedButton.icon(
+                        icon: Image.asset('images/aprendamos.png' ,width: 150,height: 60,),
+                        color: Colors.transparent,//Colors.green,
+                        label: Text("",style: TextStyle(
+                            color: Colors.white, fontSize: 0.0)),
                         shape: new RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10.0)),
                         onPressed: () {
                           Navigator.pushNamed(context, "/aprendamos");
                         },
-                        child: SizedBox(
+                        /*child: SizedBox(
                           width: 70,
                           height: 30,
                           child: Center(
                             child:
                             Text("Aprendamos", textAlign: TextAlign.center),
                           ),
-                        ),
+                        ),*/
                       ),
                     )
                   ],
@@ -106,21 +109,24 @@ class Begin extends StatelessWidget {
                   children: <Widget>[
                     Padding(
                       padding: EdgeInsets.all(10),
-                      child: RaisedButton(
-                        color: Colors.green,
+                      child: RaisedButton.icon(
+                        icon: Image.asset('images/contactos.png' ,width: 150,height: 60,),
+                        color: Colors.transparent,//Colors.green,
+                        label: Text("",style: TextStyle(
+                            color: Colors.white, fontSize: 0.0)),
                         shape: new RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10.0)),
                         onPressed: () {
                           Navigator.pushNamed(context, "/contactos");
                         },
-                        child: SizedBox(
+                        /*child: SizedBox(
                           width: 70,
                           height: 30,
                           child: Center(
                             child:
                             Text("Contactos", textAlign: TextAlign.center),
                           ),
-                        ),
+                        ),*/
                       ),
                     )
                   ],
@@ -129,21 +135,24 @@ class Begin extends StatelessWidget {
                   children: <Widget>[
                     Padding(
                       padding: EdgeInsets.all(10),
-                      child: RaisedButton(
-                        color: Colors.green,
+                      child: RaisedButton.icon(
+                        icon: Image.asset('images/acercade.png' ,width: 150,height: 60,),
+                        color: Colors.transparent,//Colors.green,
+                        label: Text("",style: TextStyle(
+                            color: Colors.white, fontSize: 0.0)),
                         shape: new RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10.0)),
                         onPressed: () {
                           Navigator.pushNamed(context, "/acercade");
                         },
-                        child: SizedBox(
+                        /*child: SizedBox(
                           width: 70,
                           height: 30,
                           child: Center(
                             child:
                             Text("Acerca de", textAlign: TextAlign.center),
                           ),
-                        ),
+                        ),*/
                       ),
                     )
                   ],
@@ -183,7 +192,7 @@ class Learn extends StatelessWidget {
     return new Scaffold(
       backgroundColor: Colors.black,
       body: Container(
-        padding: EdgeInsets.only(top: 30, bottom: 10, right: 26, left: 450),
+        padding: EdgeInsets.only(top: 30, bottom: 10, right: 0, left: 392),
         decoration: BoxDecoration(
           image: DecorationImage(
               image: AssetImage('images/actividad_aprendamos.jpg'),
@@ -199,21 +208,17 @@ class Learn extends StatelessWidget {
                   children: <Widget>[
                     Padding(
                       padding: EdgeInsets.all(10),
-                      child: RaisedButton(
-                        color: Colors.lime,
+                      child: RaisedButton.icon(
+                        icon: Image.asset('images/botones/ojos.png' ,width: 150,height: 60,),
+                        color: Colors.transparent,
+
+                        label: Text("",style: TextStyle(
+                            color: Colors.transparent, fontSize: 0.0)),
                         shape: new RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10.0)),
                         onPressed: () {
                           Navigator.pushNamed(context, "/ojos");
                         },
-                        child: SizedBox(
-                          width: 70,
-                          height: 30,
-                          child: Center(
-                            child:
-                            Text("Ojos", textAlign: TextAlign.center),
-                          ),
-                        ),
                       ),
                     )
                   ],
@@ -222,21 +227,17 @@ class Learn extends StatelessWidget {
                   children: <Widget>[
                     Padding(
                       padding: EdgeInsets.all(10),
-                      child: RaisedButton(
-                        color: Colors.lime,
+                      child: RaisedButton.icon(
+                        icon: Image.asset('images/botones/cabeza.png' ,width: 150,height: 60,),
+                        color: Colors.transparent,
+
+                        label: Text("",style: TextStyle(
+                            color: Colors.transparent, fontSize: 0.0)),
                         shape: new RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10.0)),
                         onPressed: () {
                           Navigator.pushNamed(context, "/cabeza");
                         },
-                        child: SizedBox(
-                          width: 70,
-                          height: 30,
-                          child: Center(
-                            child:
-                            Text("Cabeza", textAlign: TextAlign.center),
-                          ),
-                        ),
                       ),
                     )
                   ],
@@ -245,21 +246,17 @@ class Learn extends StatelessWidget {
                   children: <Widget>[
                     Padding(
                       padding: EdgeInsets.all(10),
-                      child: RaisedButton(
-                        color: Colors.lime,
+                      child: RaisedButton.icon(
+                        icon: Image.asset('images/botones/escamas.png' ,width: 150,height: 60,),
+                        color: Colors.transparent,
+
+                        label: Text("",style: TextStyle(
+                            color: Colors.transparent, fontSize: 0.0)),
                         shape: new RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10.0)),
                         onPressed: () {
                           Navigator.pushNamed(context, "/escamas");
                         },
-                        child: SizedBox(
-                          width: 70,
-                          height: 30,
-                          child: Center(
-                            child:
-                            Text("Escamas", textAlign: TextAlign.center),
-                          ),
-                        ),
                       ),
                     )
                   ],
@@ -268,25 +265,22 @@ class Learn extends StatelessWidget {
                   children: <Widget>[
                     Padding(
                       padding: EdgeInsets.all(10),
-                      child: RaisedButton(
-                        color: Colors.lime,
+                      child: RaisedButton.icon(
+                        icon: Image.asset('images/botones/foseta.png' ,width: 150,height: 60,),
+                        color: Colors.transparent,
+
+                        label: Text("",style: TextStyle(
+                            color: Colors.transparent, fontSize: 0.0)),
                         shape: new RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10.0)),
                         onPressed: () {
                           Navigator.pushNamed(context, "/fosetaloreal");
                         },
-                        child: SizedBox(
-                          width: 70,
-                          height: 30,
-                          child: Center(
-                            child:
-                            Text("Foseta Loreal", textAlign: TextAlign.center),
-                          ),
-                        ),
                       ),
                     )
                   ],
                 ),
+
               ],
             ),
           ],
@@ -324,6 +318,124 @@ class About extends StatelessWidget {
               image: AssetImage('images/actividad_about.jpg'),
               //fit: BoxFit.cover,
               alignment: Alignment.center),
+        ),
+      ),
+    );
+  }
+}
+
+class Sightning extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return new Scaffold(
+      backgroundColor: Colors.black,
+      body: Container(
+
+
+        decoration: BoxDecoration(
+          color: Colors.transparent,
+          image: DecorationImage(
+              image: AssetImage('images/actividad_aprendamos.jpg'),
+              fit: BoxFit.cover,
+              alignment: Alignment.center
+          ),
+        ),
+        padding: EdgeInsets.only(top: 30, bottom: 10, right: 200, left: 200),
+        child: Column(
+          children: <Widget>[
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Column(
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.all(0),
+                      child: Text(
+                        'Avistamientos',
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.lightGreen, fontSize: 20),
+                      ),
+                    )
+                  ],
+                ),
+                Column(
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.all(10),
+                      child: TextFormField(
+                        decoration: const InputDecoration(
+                          icon: Icon(Icons.person),
+                          hintText: 'Ingrese su nombre',
+                          labelText: 'Nombre *',
+                          fillColor: Colors.amber,
+                          hoverColor: Colors.amber,
+                          focusColor: Colors.amber,
+
+                        ),
+                        onSaved: (String value) {
+                          // This optional block of code can be used to run
+                          // code when the user saves the form.
+                        },
+                        validator: (String value) {
+                          return value.contains('@') ? 'Do not use the @ char.' : null;
+                        },
+                      )
+
+                      ,
+                    )
+                  ],
+                ),
+                Column(
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.all(10),
+                      child: RaisedButton(
+                        color: Colors.lime,
+                        shape: new RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0)),
+                        onPressed: () {
+                          Navigator.pushNamed(context, "/escamas");
+                        },
+                        child: SizedBox(
+                          width: 70,
+                          height: 30,
+                          child: Center(
+                            child:
+                            Text("Agregar imagen", textAlign: TextAlign.center),
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+                Column(
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.all(10),
+                      child: RaisedButton(
+                        color: Colors.lime,
+                        shape: new RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0)),
+                        onPressed: () {
+                          Navigator.pushNamed(context, "/fosetaloreal");
+                        },
+                        child: SizedBox(
+                          width: 70,
+                          height: 30,
+                          child: Center(
+                            child:
+                            Text("Aceptar", textAlign: TextAlign.center),
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ],
+            ),
+
+          ],
         ),
       ),
     );

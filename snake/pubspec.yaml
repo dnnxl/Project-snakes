@@ -19,6 +19,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  camera:
+  path_provider:
+  path:
+
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -42,6 +46,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
   - images/icp.jpg
+  - images/corales.jpg
   - images/actividad_main.jpg
   - images/cr.jpg
   - images/actividad_aprendamos.jpg
@@ -51,6 +56,21 @@ flutter:
   - images/cabeza.jpg
   - images/escamas.jpg
   - images/foseta_loreal.jpg
+  - images/acercade.jpeg
+  - images/apracticar.jpeg
+  - images/aprendamos.jpeg
+  - images/contacto.jpeg
+  - images/acercade.png
+  - images/aprendamos.png
+  - images/contactos.png
+  - images/encr.png
+  - images/botones/cabeza.png
+  - images/botones/cola.png
+  - images/botones/color.png
+  - images/botones/corales.png
+  - images/botones/escamas.png
+  - images/botones/foseta.png
+  - images/botones/ojos.png
   #  - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

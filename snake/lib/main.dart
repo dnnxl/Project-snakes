@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -9,8 +12,46 @@ Future main() async {
   ]);
   runApp(new MyApp());
 }
+class MyHomePage extends StatefulWidget {
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  File _image;
+
+  Future getImage() async {
+    var image = await ImagePicker.pickImage(source: ImageSource.camera);
+
+    setState(() {
+      _image = image;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+
+        home: Scaffold(
+          appBar: AppBar(
+            title: Text('Image Picker Example'),
+          ),
+          body: Center(
+            child: _image == null
+                ? Text('No image selected.')
+                : Image.file(_image),
+          ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: getImage,
+            tooltip: 'Pick Image',
+            child: Icon(Icons.add_a_photo),
+          ),
+        ));
+  }
+}
 
 class MyApp extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -325,24 +366,35 @@ class About extends StatelessWidget {
 }
 
 class Sightning extends StatelessWidget {
+  File _image;
+
+  Future getImage() async {
+    var image = await ImagePicker.pickImage(source: ImageSource.camera);
+
+    //setState(() {
+      _image = image;
+    //});
+  }
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.white,
       body: Container(
 
 
-        decoration: BoxDecoration(
+
+        /*decoration: BoxDecoration(
           color: Colors.transparent,
           image: DecorationImage(
               image: AssetImage('images/actividad_aprendamos.jpg'),
               fit: BoxFit.cover,
               alignment: Alignment.center
           ),
-        ),
+        ),*/
         padding: EdgeInsets.only(top: 30, bottom: 10, right: 200, left: 200),
         child: Column(
           children: <Widget>[
+
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
@@ -368,11 +420,10 @@ class Sightning extends StatelessWidget {
                           icon: Icon(Icons.person),
                           hintText: 'Ingrese su nombre',
                           labelText: 'Nombre *',
-                          fillColor: Colors.amber,
-                          hoverColor: Colors.amber,
-                          focusColor: Colors.amber,
+
 
                         ),
+
                         onSaved: (String value) {
                           // This optional block of code can be used to run
                           // code when the user saves the form.
@@ -380,35 +431,41 @@ class Sightning extends StatelessWidget {
                         validator: (String value) {
                           return value.contains('@') ? 'Do not use the @ char.' : null;
                         },
-                      )
+                      ),
 
-                      ,
+
+
                     )
                   ],
                 ),
                 Column(
                   children: <Widget>[
                     Padding(
-                      padding: EdgeInsets.all(10),
-                      child: RaisedButton(
-                        color: Colors.lime,
-                        shape: new RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0)),
-                        onPressed: () {
-                          Navigator.pushNamed(context, "/escamas");
-                        },
-                        child: SizedBox(
-                          width: 70,
-                          height: 30,
-                          child: Center(
-                            child:
-                            Text("Agregar imagen", textAlign: TextAlign.center),
+                        padding: EdgeInsets.all(10),
+                        child: TextFormField(
+                          decoration: const InputDecoration(
+                            icon: Icon(Icons.person),
+                            hintText: 'Ingrese la descripción',
+                            labelText: 'Descripción *',
+
+
                           ),
+
+                          onSaved: (String value) {
+                            // This optional block of code can be used to run
+                            // code when the user saves the form.
+                          },
+                          validator: (String value) {
+                            return value.contains('@') ? 'Do not use the @ char.' : null;
+                          },
                         ),
-                      ),
+
+
+
                     )
                   ],
                 ),
+
                 Column(
                   children: <Widget>[
                     Padding(
@@ -437,6 +494,12 @@ class Sightning extends StatelessWidget {
 
           ],
         ),
+      ),
+
+      floatingActionButton: FloatingActionButton(
+        onPressed: getImage,
+        tooltip: 'Pick Image',
+        child: Icon(Icons.add_a_photo),
       ),
     );
   }
@@ -514,4 +577,42 @@ class LorealPit extends StatelessWidget {
 }
 
 
+/*
+class MyHomePage extends StatefulWidget {
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
 
+class _MyHomePageState extends State<MyHomePage> {
+  File _image;
+
+  Future getImage() async {
+    var image = await ImagePicker.pickImage(source: ImageSource.camera);
+
+    setState(() {
+      _image = image;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+
+        home: Scaffold(
+          appBar: AppBar(
+            title: Text('Image Picker Example'),
+          ),
+          body: Center(
+            child: _image == null
+                ? Text('No image selected.')
+                : Image.file(_image),
+          ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: getImage,
+            tooltip: 'Pick Image',
+            child: Icon(Icons.add_a_photo),
+          ),
+        ));
+  }
+}
+*/

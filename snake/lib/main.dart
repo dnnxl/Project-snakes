@@ -5,7 +5,9 @@ import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 
 Future main() async {
+
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.landscapeLeft,
     DeviceOrientation.landscapeRight,
@@ -459,9 +461,6 @@ class Sightning extends StatelessWidget {
                             return value.contains('@') ? 'Do not use the @ char.' : null;
                           },
                         ),
-
-
-
                     )
                   ],
                 ),

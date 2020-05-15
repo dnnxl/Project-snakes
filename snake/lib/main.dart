@@ -1,5 +1,6 @@
+import 'dart:async';
 import 'dart:io';
-
+import 'package:geolocator/geolocator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
@@ -8,12 +9,15 @@ Future main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
+
+
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.landscapeLeft,
     DeviceOrientation.landscapeRight,
   ]);
   runApp(new MyApp());
 }
+
 class MyHomePage extends StatefulWidget {
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -369,10 +373,12 @@ class About extends StatelessWidget {
 
 class Sightning extends StatelessWidget {
   File _image;
+  Position position;
 
   Future getImage() async {
     var image = await ImagePicker.pickImage(source: ImageSource.camera);
-
+    position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    print(position == null ? 'Unknown' : position.latitude.toString() + ', ' + position.longitude.toString());
     //setState(() {
       _image = image;
     //});
@@ -380,19 +386,17 @@ class Sightning extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.black,
       body: Container(
 
-
-
-        /*decoration: BoxDecoration(
+        decoration: BoxDecoration(
           color: Colors.transparent,
           image: DecorationImage(
-              image: AssetImage('images/actividad_aprendamos.jpg'),
+              image: AssetImage('images/avistamiento.jpg'),
               fit: BoxFit.cover,
               alignment: Alignment.center
           ),
-        ),*/
+        ),
         padding: EdgeInsets.only(top: 30, bottom: 10, right: 200, left: 200),
         child: Column(
           children: <Widget>[
@@ -408,7 +412,7 @@ class Sightning extends StatelessWidget {
                         'Avistamientos',
                         textAlign: TextAlign.center,
                         overflow: TextOverflow.ellipsis,
-                        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.lightGreen, fontSize: 20),
+                        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black, fontSize: 24),
                       ),
                     )
                   ],
@@ -422,7 +426,8 @@ class Sightning extends StatelessWidget {
                           icon: Icon(Icons.person),
                           hintText: 'Ingrese su nombre',
                           labelText: 'Nombre *',
-
+                          fillColor: Colors.black,
+                          hoverColor: Colors.black,
 
                         ),
 
@@ -474,7 +479,7 @@ class Sightning extends StatelessWidget {
                         shape: new RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10.0)),
                         onPressed: () {
-                          Navigator.pushNamed(context, "/fosetaloreal");
+                          Navigator.pushNamed(context, "/inicio");
                         },
                         child: SizedBox(
                           width: 70,
@@ -496,10 +501,15 @@ class Sightning extends StatelessWidget {
       ),
 
       floatingActionButton: FloatingActionButton(
+        hoverColor: Colors.black,
+        backgroundColor: Colors.black,
         onPressed: getImage,
+        mini: true,
         tooltip: 'Pick Image',
         child: Icon(Icons.add_a_photo),
+
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
     );
   }
 }

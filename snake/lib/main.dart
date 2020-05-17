@@ -78,7 +78,7 @@ class MyApp extends StatelessWidget {
         "/aprendamos": (BuildContext context) => Learn(),
         "/contactos": (BuildContext context) => Contacts(),
         "/acercade": (BuildContext context) => About(),
-        "/sighting": (BuildContext context) =>Sightning(),
+        "/sighting": (BuildContext context) =>Sighting(),
         "/ojos": (BuildContext context) => Eyes(),
         "/cabeza": (BuildContext context) => Head(),
         "/escamas": (BuildContext context) => Scales(),
@@ -98,13 +98,14 @@ class Begin extends StatelessWidget {
       backgroundColor: Colors.black,
 
       body: Container(
-        padding: EdgeInsets.only(top: 10, bottom: 0, right: 350, left: 40),
+        padding: EdgeInsets.only(top: 20, bottom: 0, right: 302, left: 48),
         decoration: BoxDecoration(
           image: DecorationImage(
               image: AssetImage('images/actividad_main.jpg'),
-              //fit: BoxFit.cover,
-              alignment: Alignment.center),
+              fit: BoxFit.cover,
+              alignment: Alignment.lerp(Alignment.bottomLeft, Alignment.bottomRight, 0.2)),
         ),
+
         child: Column(
           children: <Widget>[
             Column(
@@ -113,12 +114,12 @@ class Begin extends StatelessWidget {
                 Column(
                   children: <Widget>[
                     Padding(
-                      padding: EdgeInsets.all(10),
+                      padding: EdgeInsets.only(right: 62.0),
 
-                      child: RaisedButton.icon(
-                        icon: Image.asset('images/encr.png' ,width: 150,height: 50,),
+                      child: FlatButton.icon(
+
+                        icon: Image.asset('images/avistamiento.png' ,width: 150,height: 60,),
                         color: c1,
-
 
                           label: Text("",style: TextStyle(
                               color: Colors.transparent, fontSize: 0.0)),
@@ -134,9 +135,10 @@ class Begin extends StatelessWidget {
                 Column(
                   children: <Widget>[
                     Padding(
-                      padding: EdgeInsets.all(10),
-                      child: RaisedButton.icon(
-                        icon: Image.asset('images/aprendamos.png' ,width: 150,height: 50,),
+                      padding: EdgeInsets.only(right: 22.0),
+
+                      child: FlatButton.icon(
+                        icon: Image.asset('images/aprendamos.png' ,width: 150,height: 60,),
                         color: Colors.transparent,//Colors.green,
                         label: Text("",style: TextStyle(
                             color: Colors.white, fontSize: 0.0)),
@@ -152,9 +154,9 @@ class Begin extends StatelessWidget {
                 Column(
                   children: <Widget>[
                     Padding(
-                      padding: EdgeInsets.all(10),
-                      child: RaisedButton.icon(
-                        icon: Image.asset('images/encr.png' ,width: 150,height: 50,),
+                      padding: EdgeInsets.only(left: 2.0),
+                      child: FlatButton.icon(
+                        icon: Image.asset('images/encr.png' ,width: 150,height: 60,),
                         color: Colors.transparent,//Colors.green,
                         label: Text("",style: TextStyle(
                             color: Colors.white, fontSize: 0.0)),
@@ -170,16 +172,16 @@ class Begin extends StatelessWidget {
                 Column(
                   children: <Widget>[
                     Padding(
-                      padding: EdgeInsets.all(10),
-                      child: RaisedButton.icon(
-                        icon: Image.asset('images/contactos.png' ,width: 150,height: 50,),
+                      padding: EdgeInsets.only(left: 22.0),
+                      child: FlatButton.icon(
+                        icon: Image.asset('images/contactos.png' ,width: 150,height: 60,),
                         color: Colors.transparent,//Colors.green,
                         label: Text("",style: TextStyle(
                             color: Colors.white, fontSize: 0.0)),
                         shape: new RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10.0)),
                         onPressed: () {
-                          Navigator.pushNamed(context, "/sighting");},
+                          Navigator.pushNamed(context, "/contactos");},
                       ),
                     )
                   ],
@@ -187,9 +189,9 @@ class Begin extends StatelessWidget {
                 Column(
                   children: <Widget>[
                     Padding(
-                    padding: EdgeInsets.all(10),
-                      child: RaisedButton.icon(
-                        icon: Image.asset('images/acercade.png' ,width: 150,height: 50,),
+                      padding: EdgeInsets.only(left: 62.0),
+                      child: FlatButton.icon(
+                        icon: Image.asset('images/acercade.png' ,width: 150,height: 60,),
                         color: Colors.transparent,//Colors.green,
                         label: Text("",style: TextStyle(
                           color: Colors.white, fontSize: 0.0)),
@@ -213,9 +215,12 @@ class Begin extends StatelessWidget {
 
 //Sections of the app
 
-class Sightning extends StatelessWidget {
-  //File _image;
-  //Position position;
+class Sighting extends StatelessWidget {
+
+  var latitud = 0.0;
+  var longitud = 0.0;
+  var nombre = "";
+  var descripcion = "";
   final myControllerName = TextEditingController();
   final myControllerDescription = TextEditingController();
 
@@ -236,7 +241,7 @@ class Sightning extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.transparent,
           image: DecorationImage(
-              image: AssetImage('images/avistamiento.jpg'),
+              image: AssetImage('images/avistamientos.jpg'),
               fit: BoxFit.cover,
               alignment: Alignment.center
           ),
@@ -317,11 +322,16 @@ class Sightning extends StatelessWidget {
                   children: <Widget>[
                     Padding(
                       padding: EdgeInsets.all(10),
-                      child: RaisedButton(
+                      child: FlatButton(
                         color: Colors.lime,
                         shape: new RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10.0)),
                         onPressed: () {
+                          nombre = myControllerName.text;
+                          descripcion = myControllerDescription.text;
+                          latitud = position.latitude;
+                          longitud = position.longitude;
+
                           Navigator.pushNamed(context, "/inicio");
                         },
                         child: SizedBox(
@@ -367,8 +377,8 @@ class Learn extends StatelessWidget {
         decoration: BoxDecoration(
           image: DecorationImage(
               image: AssetImage('images/actividad_aprendamos.jpg'),
-              //fit: BoxFit.cover,
-              alignment: Alignment.center),
+              fit: BoxFit.cover,
+              alignment: Alignment.lerp(Alignment.bottomLeft, Alignment.bottomRight, 1)),
         ),
         child: Column(
           children: <Widget>[
@@ -379,7 +389,7 @@ class Learn extends StatelessWidget {
                   children: <Widget>[
                     Padding(
                       padding: EdgeInsets.all(10),
-                      child: RaisedButton.icon(
+                      child: FlatButton.icon(
                         icon: Image.asset('images/botones/ojos.png' ,width: 150,height: 50,),
                         color: Colors.transparent,
 
@@ -398,7 +408,7 @@ class Learn extends StatelessWidget {
                   children: <Widget>[
                     Padding(
                       padding: EdgeInsets.all(10),
-                      child: RaisedButton.icon(
+                      child: FlatButton.icon(
                         icon: Image.asset('images/botones/cabeza.png' ,width: 150,height: 50,),
                         color: Colors.transparent,
 
@@ -417,7 +427,7 @@ class Learn extends StatelessWidget {
                   children: <Widget>[
                     Padding(
                       padding: EdgeInsets.all(10),
-                      child: RaisedButton.icon(
+                      child: FlatButton.icon(
                         icon: Image.asset('images/botones/escamas.png' ,width: 150,height: 50,),
                         color: Colors.transparent,
 
@@ -436,7 +446,7 @@ class Learn extends StatelessWidget {
                   children: <Widget>[
                     Padding(
                       padding: EdgeInsets.all(10),
-                      child: RaisedButton.icon(
+                      child: FlatButton.icon(
                         icon: Image.asset('images/botones/foseta.png' ,width: 150,height: 50,),
                         color: Colors.transparent,
 
@@ -455,7 +465,7 @@ class Learn extends StatelessWidget {
                   children: <Widget>[
                     Padding(
                       padding: EdgeInsets.all(10),
-                      child: RaisedButton.icon(
+                      child: FlatButton.icon(
                         icon: Image.asset('images/botones/corales.png' ,width: 150,height: 50,),
                         color: Colors.transparent,
 
@@ -488,7 +498,7 @@ class InCR extends StatelessWidget {
         decoration: BoxDecoration(
           image: DecorationImage(
               image: AssetImage('images/cr.jpg'),
-              //fit: BoxFit.cover,
+              fit: BoxFit.cover,
               alignment: Alignment.center),
         ),
       ),
@@ -505,7 +515,7 @@ class Contacts extends StatelessWidget {
         decoration: BoxDecoration(
           image: DecorationImage(
               image: AssetImage('images/actividad_contacto.jpg'),
-              //fit: BoxFit.cover,
+              fit: BoxFit.cover,
               alignment: Alignment.center),
         ),
       ),
@@ -521,8 +531,8 @@ class About extends StatelessWidget {
         padding: EdgeInsets.only(top: 30, bottom: 10, right: 466, left: 10),
         decoration: BoxDecoration(
           image: DecorationImage(
-              image: AssetImage('images/actividad_about.jpg'),
-              //fit: BoxFit.cover,
+              image: AssetImage('images/actividad_about.png'),
+              fit: BoxFit.cover,
               alignment: Alignment.center),
         ),
       ),
@@ -542,7 +552,7 @@ class Eyes extends StatelessWidget {
         decoration: BoxDecoration(
           image: DecorationImage(
               image: AssetImage('images/ojos.jpg'),
-              //fit: BoxFit.cover,
+              fit: BoxFit.cover,
               alignment: Alignment.center),
         ),
       ),
@@ -559,7 +569,7 @@ class Head extends StatelessWidget {
         decoration: BoxDecoration(
           image: DecorationImage(
               image: AssetImage('images/cabeza.jpg'),
-              //fit: BoxFit.cover,
+              fit: BoxFit.cover,
               alignment: Alignment.center),
         ),
       ),
@@ -576,7 +586,7 @@ class Scales extends StatelessWidget {
         decoration: BoxDecoration(
           image: DecorationImage(
               image: AssetImage('images/escamas.jpg'),
-              //fit: BoxFit.cover,
+              fit: BoxFit.cover,
               alignment: Alignment.center),
         ),
       ),
@@ -593,7 +603,7 @@ class LorealPit extends StatelessWidget {
         decoration: BoxDecoration(
           image: DecorationImage(
               image: AssetImage('images/foseta_loreal.jpg'),
-              //fit: BoxFit.cover,
+              fit: BoxFit.cover,
               alignment: Alignment.center),
         ),
       ),
@@ -610,7 +620,7 @@ class Corals extends StatelessWidget {
         decoration: BoxDecoration(
           image: DecorationImage(
               image: AssetImage('images/corales.jpg'),
-              //fit: BoxFit.cover,
+              fit: BoxFit.cover,
               alignment: Alignment.center),
         ),
       ),
@@ -619,42 +629,3 @@ class Corals extends StatelessWidget {
 }
 
 
-/*
-class MyHomePage extends StatefulWidget {
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  File _image;
-
-  Future getImage() async {
-    var image = await ImagePicker.pickImage(source: ImageSource.camera);
-
-    setState(() {
-      _image = image;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-
-        home: Scaffold(
-          appBar: AppBar(
-            title: Text('Image Picker Example'),
-          ),
-          body: Center(
-            child: _image == null
-                ? Text('No image selected.')
-                : Image.file(_image),
-          ),
-          floatingActionButton: FloatingActionButton(
-            onPressed: getImage,
-            tooltip: 'Pick Image',
-            child: Icon(Icons.add_a_photo),
-          ),
-        ));
-  }
-}
-*/

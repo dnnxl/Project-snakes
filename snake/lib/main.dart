@@ -216,6 +216,8 @@ class Begin extends StatelessWidget {
 class Sightning extends StatelessWidget {
   //File _image;
   //Position position;
+  final myControllerName = TextEditingController();
+  final myControllerDescription = TextEditingController();
 
   Future getImage() async {
     var image = await ImagePicker.pickImage(source: ImageSource.camera);
@@ -272,7 +274,7 @@ class Sightning extends StatelessWidget {
                           hoverColor: Colors.black,
 
                         ),
-
+                        controller: myControllerName,
                         onSaved: (String value) {
                           // This optional block of code can be used to run
                           // code when the user saves the form.
@@ -297,9 +299,8 @@ class Sightning extends StatelessWidget {
                           hintText: 'Ingrese la descripción',
                           labelText: 'Descripción *',
 
-
                         ),
-
+                        controller: myControllerDescription,
                         onSaved: (String value) {
                           // This optional block of code can be used to run
                           // code when the user saves the form.

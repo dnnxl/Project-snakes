@@ -66,6 +66,7 @@ flutter:
   - images/cabeza.jpg
   - images/escamas.jpg
   - images/foseta_loreal.jpg
+  - images/corales.jpg
   - images/acercade.jpeg
   - images/apracticar.jpeg
   - images/aprendamos.jpeg
@@ -81,6 +82,7 @@ flutter:
   - images/botones/escamas.png
   - images/botones/foseta.png
   - images/botones/ojos.png
+  - images/botones/corales.png
   - images/avistamiento.jpg
   -
   #  - images/a_dot_ham.jpeg

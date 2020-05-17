@@ -4,6 +4,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+File _image;
 
 Future main() async {
 
@@ -15,6 +16,7 @@ Future main() async {
     DeviceOrientation.landscapeLeft,
     DeviceOrientation.landscapeRight,
   ]);
+
   runApp(new MyApp());
 }
 
@@ -24,7 +26,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  File _image;
+  //File _image;
 
   Future getImage() async {
     var image = await ImagePicker.pickImage(source: ImageSource.camera);
@@ -74,12 +76,13 @@ class MyApp extends StatelessWidget {
         "/encr": (BuildContext context) => InCR(),
         "/aprendamos": (BuildContext context) => Learn(),
         "/contactos": (BuildContext context) => Contacts(),
-        //"/acercade": (BuildContext context) => About(),
-        "/acercade": (BuildContext context) =>Sightning(),
+        "/acercade": (BuildContext context) => About(),
+        "/sighting": (BuildContext context) =>Sightning(),
         "/ojos": (BuildContext context) => Eyes(),
         "/cabeza": (BuildContext context) => Head(),
         "/escamas": (BuildContext context) => Scales(),
         "/fosetaloreal": (BuildContext context) => LorealPit(),
+        "/corales": (BuildContext context) => Corals(),
       },
     );
   }
@@ -94,7 +97,7 @@ class Begin extends StatelessWidget {
       backgroundColor: Colors.black,
 
       body: Container(
-        padding: EdgeInsets.only(top: 30, bottom: 10, right: 350, left: 40),
+        padding: EdgeInsets.only(top: 10, bottom: 0, right: 350, left: 40),
         decoration: BoxDecoration(
           image: DecorationImage(
               image: AssetImage('images/actividad_main.jpg'),
@@ -112,11 +115,48 @@ class Begin extends StatelessWidget {
                       padding: EdgeInsets.all(10),
 
                       child: RaisedButton.icon(
-                        icon: Image.asset('images/encr.png' ,width: 150,height: 60,),
+                        icon: Image.asset('images/encr.png' ,width: 150,height: 50,),
                         color: c1,
+
 
                           label: Text("",style: TextStyle(
                               color: Colors.transparent, fontSize: 0.0)),
+                        shape: new RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0)),
+                        onPressed: () {
+                          Navigator.pushNamed(context, "/sighting");
+                        },
+                      ),
+                    )
+                  ],
+                ),
+                Column(
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.all(10),
+                      child: RaisedButton.icon(
+                        icon: Image.asset('images/aprendamos.png' ,width: 150,height: 50,),
+                        color: Colors.transparent,//Colors.green,
+                        label: Text("",style: TextStyle(
+                            color: Colors.white, fontSize: 0.0)),
+                        shape: new RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0)),
+                        onPressed: () {
+                          Navigator.pushNamed(context, "/aprendamos");
+                        },
+                      ),
+                    )
+                  ],
+                ),
+                Column(
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.all(10),
+                      child: RaisedButton.icon(
+                        icon: Image.asset('images/encr.png' ,width: 150,height: 50,),
+                        color: Colors.transparent,//Colors.green,
+                        label: Text("",style: TextStyle(
+                            color: Colors.white, fontSize: 0.0)),
                         shape: new RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10.0)),
                         onPressed: () {
@@ -131,23 +171,14 @@ class Begin extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.all(10),
                       child: RaisedButton.icon(
-                        icon: Image.asset('images/aprendamos.png' ,width: 150,height: 60,),
+                        icon: Image.asset('images/contactos.png' ,width: 150,height: 50,),
                         color: Colors.transparent,//Colors.green,
                         label: Text("",style: TextStyle(
                             color: Colors.white, fontSize: 0.0)),
                         shape: new RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10.0)),
                         onPressed: () {
-                          Navigator.pushNamed(context, "/aprendamos");
-                        },
-                        /*child: SizedBox(
-                          width: 70,
-                          height: 30,
-                          child: Center(
-                            child:
-                            Text("Aprendamos", textAlign: TextAlign.center),
-                          ),
-                        ),*/
+                          Navigator.pushNamed(context, "/sighting");},
                       ),
                     )
                   ],
@@ -155,52 +186,17 @@ class Begin extends StatelessWidget {
                 Column(
                   children: <Widget>[
                     Padding(
-                      padding: EdgeInsets.all(10),
+                    padding: EdgeInsets.all(10),
                       child: RaisedButton.icon(
-                        icon: Image.asset('images/contactos.png' ,width: 150,height: 60,),
+                        icon: Image.asset('images/acercade.png' ,width: 150,height: 50,),
                         color: Colors.transparent,//Colors.green,
                         label: Text("",style: TextStyle(
-                            color: Colors.white, fontSize: 0.0)),
+                          color: Colors.white, fontSize: 0.0)),
                         shape: new RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0)),
+                          borderRadius: BorderRadius.circular(10.0)),
                         onPressed: () {
-                          Navigator.pushNamed(context, "/contactos");
-                        },
-                        /*child: SizedBox(
-                          width: 70,
-                          height: 30,
-                          child: Center(
-                            child:
-                            Text("Contactos", textAlign: TextAlign.center),
-                          ),
-                        ),*/
-                      ),
-                    )
-                  ],
-                ),
-                Column(
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.all(10),
-                      child: RaisedButton.icon(
-                        icon: Image.asset('images/acercade.png' ,width: 150,height: 60,),
-                        color: Colors.transparent,//Colors.green,
-                        label: Text("",style: TextStyle(
-                            color: Colors.white, fontSize: 0.0)),
-                        shape: new RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0)),
-                        onPressed: () {
-                          Navigator.pushNamed(context, "/acercade");
-                        },
-                        /*child: SizedBox(
-                          width: 70,
-                          height: 30,
-                          child: Center(
-                            child:
-                            Text("Acerca de", textAlign: TextAlign.center),
-                          ),
-                        ),*/
-                      ),
+                          Navigator.pushNamed(context, "/acercade");},
+                        ),
                     )
                   ],
                 ),
@@ -216,163 +212,8 @@ class Begin extends StatelessWidget {
 
 //Sections of the app
 
-class InCR extends StatelessWidget {
-  Widget build(BuildContext context) {
-    return new Scaffold(
-      backgroundColor: Colors.black,
-      body: Container(
-        padding: EdgeInsets.only(top: 30, bottom: 10, right: 466, left: 10),
-        decoration: BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage('images/cr.jpg'),
-              //fit: BoxFit.cover,
-              alignment: Alignment.center),
-        ),
-      ),
-    );
-  }
-}
-
-class Learn extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return new Scaffold(
-      backgroundColor: Colors.black,
-      body: Container(
-        padding: EdgeInsets.only(top: 30, bottom: 10, right: 0, left: 392),
-        decoration: BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage('images/actividad_aprendamos.jpg'),
-              //fit: BoxFit.cover,
-              alignment: Alignment.center),
-        ),
-        child: Column(
-          children: <Widget>[
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Column(
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.all(10),
-                      child: RaisedButton.icon(
-                        icon: Image.asset('images/botones/ojos.png' ,width: 150,height: 60,),
-                        color: Colors.transparent,
-
-                        label: Text("",style: TextStyle(
-                            color: Colors.transparent, fontSize: 0.0)),
-                        shape: new RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0)),
-                        onPressed: () {
-                          Navigator.pushNamed(context, "/ojos");
-                        },
-                      ),
-                    )
-                  ],
-                ),
-                Column(
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.all(10),
-                      child: RaisedButton.icon(
-                        icon: Image.asset('images/botones/cabeza.png' ,width: 150,height: 60,),
-                        color: Colors.transparent,
-
-                        label: Text("",style: TextStyle(
-                            color: Colors.transparent, fontSize: 0.0)),
-                        shape: new RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0)),
-                        onPressed: () {
-                          Navigator.pushNamed(context, "/cabeza");
-                        },
-                      ),
-                    )
-                  ],
-                ),
-                Column(
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.all(10),
-                      child: RaisedButton.icon(
-                        icon: Image.asset('images/botones/escamas.png' ,width: 150,height: 60,),
-                        color: Colors.transparent,
-
-                        label: Text("",style: TextStyle(
-                            color: Colors.transparent, fontSize: 0.0)),
-                        shape: new RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0)),
-                        onPressed: () {
-                          Navigator.pushNamed(context, "/escamas");
-                        },
-                      ),
-                    )
-                  ],
-                ),
-                Column(
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.all(10),
-                      child: RaisedButton.icon(
-                        icon: Image.asset('images/botones/foseta.png' ,width: 150,height: 60,),
-                        color: Colors.transparent,
-
-                        label: Text("",style: TextStyle(
-                            color: Colors.transparent, fontSize: 0.0)),
-                        shape: new RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0)),
-                        onPressed: () {
-                          Navigator.pushNamed(context, "/fosetaloreal");
-                        },
-                      ),
-                    )
-                  ],
-                ),
-
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class Contacts extends StatelessWidget {
-  Widget build(BuildContext context) {
-    return new Scaffold(
-      backgroundColor: Colors.black,
-      body: Container(
-        padding: EdgeInsets.only(top: 30, bottom: 10, right: 466, left: 10),
-        decoration: BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage('images/actividad_contacto.jpg'),
-              //fit: BoxFit.cover,
-              alignment: Alignment.center),
-        ),
-      ),
-    );
-  }
-}
-
-class About extends StatelessWidget {
-  Widget build(BuildContext context) {
-    return new Scaffold(
-      backgroundColor: Colors.black,
-      body: Container(
-        padding: EdgeInsets.only(top: 30, bottom: 10, right: 466, left: 10),
-        decoration: BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage('images/actividad_about.jpg'),
-              //fit: BoxFit.cover,
-              alignment: Alignment.center),
-        ),
-      ),
-    );
-  }
-}
-
 class Sightning extends StatelessWidget {
-  File _image;
+  //File _image;
   Position position;
 
   Future getImage() async {
@@ -380,7 +221,7 @@ class Sightning extends StatelessWidget {
     position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
     print(position == null ? 'Unknown' : position.latitude.toString() + ', ' + position.longitude.toString());
     //setState(() {
-      _image = image;
+    _image = image;
     //});
   }
   @override
@@ -448,24 +289,24 @@ class Sightning extends StatelessWidget {
                 Column(
                   children: <Widget>[
                     Padding(
-                        padding: EdgeInsets.all(10),
-                        child: TextFormField(
-                          decoration: const InputDecoration(
-                            icon: Icon(Icons.person),
-                            hintText: 'Ingrese la descripción',
-                            labelText: 'Descripción *',
+                      padding: EdgeInsets.all(10),
+                      child: TextFormField(
+                        decoration: const InputDecoration(
+                          icon: Icon(Icons.person),
+                          hintText: 'Ingrese la descripción',
+                          labelText: 'Descripción *',
 
 
-                          ),
-
-                          onSaved: (String value) {
-                            // This optional block of code can be used to run
-                            // code when the user saves the form.
-                          },
-                          validator: (String value) {
-                            return value.contains('@') ? 'Do not use the @ char.' : null;
-                          },
                         ),
+
+                        onSaved: (String value) {
+                          // This optional block of code can be used to run
+                          // code when the user saves the form.
+                        },
+                        validator: (String value) {
+                          return value.contains('@') ? 'Do not use the @ char.' : null;
+                        },
+                      ),
                     )
                   ],
                 ),
@@ -510,6 +351,179 @@ class Sightning extends StatelessWidget {
 
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
+    );
+  }
+}
+
+class Learn extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return new Scaffold(
+      backgroundColor: Colors.black,
+      body: Container(
+        padding: EdgeInsets.only(top: 0, bottom: 10, right: 0, left: 392),
+        decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage('images/actividad_aprendamos.jpg'),
+              //fit: BoxFit.cover,
+              alignment: Alignment.center),
+        ),
+        child: Column(
+          children: <Widget>[
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Column(
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.all(10),
+                      child: RaisedButton.icon(
+                        icon: Image.asset('images/botones/ojos.png' ,width: 150,height: 50,),
+                        color: Colors.transparent,
+
+                        label: Text("",style: TextStyle(
+                            color: Colors.transparent, fontSize: 0.0)),
+                        shape: new RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0)),
+                        onPressed: () {
+                          Navigator.pushNamed(context, "/ojos");
+                        },
+                      ),
+                    )
+                  ],
+                ),
+                Column(
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.all(10),
+                      child: RaisedButton.icon(
+                        icon: Image.asset('images/botones/cabeza.png' ,width: 150,height: 50,),
+                        color: Colors.transparent,
+
+                        label: Text("",style: TextStyle(
+                            color: Colors.transparent, fontSize: 0.0)),
+                        shape: new RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0)),
+                        onPressed: () {
+                          Navigator.pushNamed(context, "/cabeza");
+                        },
+                      ),
+                    )
+                  ],
+                ),
+                Column(
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.all(10),
+                      child: RaisedButton.icon(
+                        icon: Image.asset('images/botones/escamas.png' ,width: 150,height: 50,),
+                        color: Colors.transparent,
+
+                        label: Text("",style: TextStyle(
+                            color: Colors.transparent, fontSize: 0.0)),
+                        shape: new RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0)),
+                        onPressed: () {
+                          Navigator.pushNamed(context, "/escamas");
+                        },
+                      ),
+                    )
+                  ],
+                ),
+                Column(
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.all(10),
+                      child: RaisedButton.icon(
+                        icon: Image.asset('images/botones/foseta.png' ,width: 150,height: 50,),
+                        color: Colors.transparent,
+
+                        label: Text("",style: TextStyle(
+                            color: Colors.transparent, fontSize: 0.0)),
+                        shape: new RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0)),
+                        onPressed: () {
+                          Navigator.pushNamed(context, "/fosetaloreal");
+                        },
+                      ),
+                    )
+                  ],
+                ),
+                Column(
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.all(10),
+                      child: RaisedButton.icon(
+                        icon: Image.asset('images/botones/corales.png' ,width: 150,height: 50,),
+                        color: Colors.transparent,
+
+                        label: Text("",style: TextStyle(
+                            color: Colors.transparent, fontSize: 0.0)),
+                        shape: new RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0)),
+                        onPressed: () {
+                          Navigator.pushNamed(context, "/corales");
+                        },
+                      ),
+                    )
+                  ],
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class InCR extends StatelessWidget {
+  Widget build(BuildContext context) {
+    return new Scaffold(
+      backgroundColor: Colors.black,
+      body: Container(
+        padding: EdgeInsets.only(top: 30, bottom: 10, right: 466, left: 10),
+        decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage('images/cr.jpg'),
+              //fit: BoxFit.cover,
+              alignment: Alignment.center),
+        ),
+      ),
+    );
+  }
+}
+
+class Contacts extends StatelessWidget {
+  Widget build(BuildContext context) {
+    return new Scaffold(
+      backgroundColor: Colors.black,
+      body: Container(
+        padding: EdgeInsets.only(top: 30, bottom: 10, right: 466, left: 10),
+        decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage('images/actividad_contacto.jpg'),
+              //fit: BoxFit.cover,
+              alignment: Alignment.center),
+        ),
+      ),
+    );
+  }
+}
+
+class About extends StatelessWidget {
+  Widget build(BuildContext context) {
+    return new Scaffold(
+      backgroundColor: Colors.black,
+      body: Container(
+        padding: EdgeInsets.only(top: 30, bottom: 10, right: 466, left: 10),
+        decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage('images/actividad_about.jpg'),
+              //fit: BoxFit.cover,
+              alignment: Alignment.center),
+        ),
+      ),
     );
   }
 }
@@ -577,6 +591,23 @@ class LorealPit extends StatelessWidget {
         decoration: BoxDecoration(
           image: DecorationImage(
               image: AssetImage('images/foseta_loreal.jpg'),
+              //fit: BoxFit.cover,
+              alignment: Alignment.center),
+        ),
+      ),
+    );
+  }
+}
+
+class Corals extends StatelessWidget {
+  Widget build(BuildContext context) {
+    return new Scaffold(
+      backgroundColor: Colors.black,
+      body: Container(
+        padding: EdgeInsets.only(top: 30, bottom: 10, right: 466, left: 10),
+        decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage('images/corales.jpg'),
               //fit: BoxFit.cover,
               alignment: Alignment.center),
         ),

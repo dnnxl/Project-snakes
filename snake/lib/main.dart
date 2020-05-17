@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 File _image;
+Position position;
 
 Future main() async {
 
@@ -214,7 +215,7 @@ class Begin extends StatelessWidget {
 
 class Sightning extends StatelessWidget {
   //File _image;
-  Position position;
+  //Position position;
 
   Future getImage() async {
     var image = await ImagePicker.pickImage(source: ImageSource.camera);

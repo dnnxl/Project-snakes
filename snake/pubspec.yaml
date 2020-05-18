@@ -35,9 +35,8 @@ dependencies:
 
 
 flutter_icons:
-  #image_path: "images/icon.jpg"
-  image_path: "images/aprendamos.png"
-  Android: true
+  image_path: "images/icono.png"
+  android: true
   ios: true
 
 dev_dependencies:
@@ -87,7 +86,6 @@ flutter:
   - images/botones/ojos.png
   - images/botones/corales.png
   - images/avistamientos.jpg
-  -
   #  - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

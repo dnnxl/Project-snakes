@@ -3,9 +3,11 @@ import 'dart:io';
 import 'package:geolocator/geolocator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
+import 'dart:convert';
+
 File _image;
-Position position;
 
 Future main() async {
 
@@ -212,22 +214,42 @@ class Begin extends StatelessWidget {
   }
 }
 
+class Services {
+
+  void postData(var avistamiento) async {
+    var url = "https://snake-api-mysql.herokuapp.com/SnakesApi/Sighting/Create";
+
+    var response = await post(Uri.parse(url),
+        headers: {
+          //"Accept": "application/json",
+          "Content-Type": "application/json"
+        },
+        body: jsonEncode(avistamiento),
+        encoding: Encoding.getByName("utf-8"));
+
+  }
+}
+
 
 //Sections of the app
 
 class Sighting extends StatelessWidget {
 
+  Position position;
   var latitud = 0.0;
   var longitud = 0.0;
   var nombre = "";
   var descripcion = "";
+  var correo = "";
+  var fecha = DateTime.now();
   final myControllerName = TextEditingController();
   final myControllerDescription = TextEditingController();
+  final myControllerEmail = TextEditingController();
 
   Future getImage() async {
     var image = await ImagePicker.pickImage(source: ImageSource.camera);
-    position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-    print(position == null ? 'Unknown' : position.latitude.toString() + ', ' + position.longitude.toString());
+
+    //print(position == null ? 'Unknown' : position.latitude.toString() + ', ' + position.longitude.toString());
     //setState(() {
     _image = image;
     //});
@@ -300,7 +322,35 @@ class Sighting extends StatelessWidget {
                       padding: EdgeInsets.all(10),
                       child: TextFormField(
                         decoration: const InputDecoration(
-                          icon: Icon(Icons.person),
+                          icon: Icon(Icons.email),
+                          hintText: 'Ingrese su correo',
+                          labelText: 'Correo *',
+                          fillColor: Colors.black,
+                          hoverColor: Colors.black,
+
+                        ),
+                        controller: myControllerEmail,
+                        onSaved: (String value) {
+                          // This optional block of code can be used to run
+                          // code when the user saves the form.
+                        },
+                        validator: (String value) {
+                          return value.contains('@') ? 'Do not use the @ char.' : null;
+                        },
+                      ),
+
+
+
+                    )
+                  ],
+                ),
+                Column(
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.all(10),
+                      child: TextFormField(
+                        decoration: const InputDecoration(
+                          icon: Icon(Icons.insert_comment),
                           hintText: 'Ingrese la descripción',
                           labelText: 'Descripción *',
 
@@ -326,12 +376,30 @@ class Sighting extends StatelessWidget {
                         color: Colors.lime,
                         shape: new RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10.0)),
-                        onPressed: () {
+                        onPressed: () async {
+
+                          position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
                           nombre = myControllerName.text;
                           descripcion = myControllerDescription.text;
+                          correo = myControllerEmail.text;
+
                           latitud = position.latitude;
                           longitud = position.longitude;
 
+
+
+                          var avistamiento = {
+                            "UserName": nombre,
+                            "UserContact": correo,
+                            "XCoordinate": longitud.toString(),
+                            "YCoordinate": latitud.toString(),
+                            "TxtComent": descripcion,
+                            "ImageId": null,
+                            "infoId": null
+                          };
+
+                          Services service = new Services();
+                          service.postData(avistamiento);
                           Navigator.pushNamed(context, "/inicio");
                         },
                         child: SizedBox(

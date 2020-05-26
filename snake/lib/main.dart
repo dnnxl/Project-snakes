@@ -242,20 +242,29 @@ class Sighting extends StatelessWidget {
   var descripcion = "";
   var correo = "";
   var fecha = DateTime.now();
+  var imagenes = 0;
   final myControllerName = TextEditingController();
   final myControllerDescription = TextEditingController();
   final myControllerEmail = TextEditingController();
-
+  //Arraylist fotos = new Arraylist();
   Future getImage() async {
     var image = await ImagePicker.pickImage(source: ImageSource.camera);
 
     //print(position == null ? 'Unknown' : position.latitude.toString() + ', ' + position.longitude.toString());
     //setState(() {
     _image = image;
+    imagenes = imagenes + 1;
+    print(imagenes);
     //});
   }
+
   @override
   Widget build(BuildContext context) {
+
+    //for(int i = 0; i < 3; i++){
+      getImage();
+    //}
+
     return new Scaffold(
       backgroundColor: Colors.black,
       body: Container(
@@ -280,10 +289,10 @@ class Sighting extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.all(0),
                       child: Text(
-                        'Avistamientos',
+                        'Reportes',
                         textAlign: TextAlign.center,
                         overflow: TextOverflow.ellipsis,
-                        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black, fontSize: 24),
+                        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 24, ),
                       ),
                     )
                   ],
@@ -423,14 +432,15 @@ class Sighting extends StatelessWidget {
 
       floatingActionButton: FloatingActionButton(
         hoverColor: Colors.black,
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
         onPressed: getImage,
-        mini: true,
         tooltip: 'Pick Image',
         child: Icon(Icons.add_a_photo),
 
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+
     );
   }
 }

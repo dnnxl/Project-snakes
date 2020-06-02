@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:device_preview/device_preview.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -15,10 +16,10 @@ Future main() async {
   SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
 
 
-  await SystemChrome.setPreferredOrientations([
+  /*await SystemChrome.setPreferredOrientations([
     DeviceOrientation.landscapeLeft,
     DeviceOrientation.landscapeRight,
-  ]);
+  ]);*/
 
   runApp(new MyApp());
 }
@@ -66,6 +67,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      builder: DevicePreview.appBuilder,
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
@@ -233,20 +235,38 @@ class Services {
 
 //Sections of the app
 
-class Sighting extends StatelessWidget {
+class Sighting extends StatefulWidget {
 
+  @override
+  _SightingState createState() => _SightingState();
+}
+
+class _SightingState extends State<Sighting> {
   Position position;
+
   var latitud = 0.0;
+
   var longitud = 0.0;
+
   var nombre = "";
+
   var descripcion = "";
+
   var correo = "";
+
   var fecha = DateTime.now();
+
   var imagenes = 0;
+
+  bool checkBoxValueBite = false;
+  bool checkBoxValueCall911 = false;
+
   final myControllerName = TextEditingController();
+
   final myControllerDescription = TextEditingController();
+
   final myControllerEmail = TextEditingController();
-  //Arraylist fotos = new Arraylist();
+
   Future getImage() async {
     var image = await ImagePicker.pickImage(source: ImageSource.camera);
 
@@ -261,9 +281,7 @@ class Sighting extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    //for(int i = 0; i < 3; i++){
-      getImage();
-    //}
+     // getImage();
 
     return new Scaffold(
       backgroundColor: Colors.black,
@@ -272,12 +290,12 @@ class Sighting extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.transparent,
           image: DecorationImage(
-              image: AssetImage('images/avistamientos.jpg'),
+              image: AssetImage('images/avistamientos-min(2).jpg'),
               fit: BoxFit.cover,
               alignment: Alignment.center
           ),
         ),
-        padding: EdgeInsets.only(top: 30, bottom: 10, right: 200, left: 200),
+        padding: EdgeInsets.only(top: 10, bottom: 10, right: 200, left: 200),
         child: Column(
           children: <Widget>[
 
@@ -287,20 +305,69 @@ class Sighting extends StatelessWidget {
                 Column(
                   children: <Widget>[
                     Padding(
-                      padding: EdgeInsets.all(0),
+                      padding: EdgeInsets.only(bottom: 30),
                       child: Text(
                         'Reportes',
                         textAlign: TextAlign.center,
                         overflow: TextOverflow.ellipsis,
-                        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 24, ),
+                        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 30, ),
                       ),
                     )
                   ],
                 ),
-                Column(
+                Row(
+                  children: <Widget>[
+                    Text(
+                      '¿Mordió? : ',
+                      textAlign: TextAlign.center,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(fontWeight: FontWeight.normal, color: Colors.white, fontSize: 17, ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(0),
+                      child: Checkbox(
+                        value: checkBoxValueBite,
+                        onChanged: (bool value){
+                          checkBoxValueBite = value;
+                          setState((){
+                            checkBoxValueBite = value;
+                          });
+                        },
+                        checkColor: Colors.white,
+                        activeColor: Colors.black,
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: <Widget>[
+                    Text(
+                      '¿Llamó al 911? : ',
+                      textAlign: TextAlign.center,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(fontWeight: FontWeight.normal, color: Colors.white, fontSize: 17, ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(0),
+                      child: Checkbox(
+                        value: checkBoxValueCall911,
+                        onChanged: (bool value){
+
+                          checkBoxValueCall911 = value;
+                          setState((){
+                            checkBoxValueCall911 = value;
+                          });
+                        },
+                        checkColor: Colors.white,
+                        activeColor: Colors.black,
+                      ),
+                    ),
+                  ],
+                ),
+                /*Column(
                   children: <Widget>[
                     Padding(
-                      padding: EdgeInsets.all(10),
+                      padding: EdgeInsets.all(0),
                       child: TextFormField(
                         decoration: const InputDecoration(
                           icon: Icon(Icons.person),
@@ -319,25 +386,25 @@ class Sighting extends StatelessWidget {
                           return value.contains('@') ? 'Do not use the @ char.' : null;
                         },
                       ),
-
-
-
                     )
                   ],
-                ),
+                ),*/
                 Column(
                   children: <Widget>[
                     Padding(
-                      padding: EdgeInsets.all(10),
+                      padding: EdgeInsets.all(0),
                       child: TextFormField(
                         decoration: const InputDecoration(
                           icon: Icon(Icons.email),
                           hintText: 'Ingrese su correo',
                           labelText: 'Correo *',
-                          fillColor: Colors.black,
-                          hoverColor: Colors.black,
+                          fillColor: Colors.white,
+                          hoverColor: Colors.white,
+                          focusColor: Colors.white,
+
 
                         ),
+                        cursorColor: Colors.white,
                         controller: myControllerEmail,
                         onSaved: (String value) {
                           // This optional block of code can be used to run
@@ -347,16 +414,13 @@ class Sighting extends StatelessWidget {
                           return value.contains('@') ? 'Do not use the @ char.' : null;
                         },
                       ),
-
-
-
                     )
                   ],
                 ),
                 Column(
                   children: <Widget>[
                     Padding(
-                      padding: EdgeInsets.all(10),
+                      padding: EdgeInsets.all(0),
                       child: TextFormField(
                         decoration: const InputDecoration(
                           icon: Icon(Icons.insert_comment),
@@ -380,11 +444,12 @@ class Sighting extends StatelessWidget {
                 Column(
                   children: <Widget>[
                     Padding(
-                      padding: EdgeInsets.all(10),
+                      padding: EdgeInsets.all(0),
                       child: FlatButton(
-                        color: Colors.lime,
+                        color: Colors.green,
                         shape: new RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10.0)),
+
                         onPressed: () async {
 
                           position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);

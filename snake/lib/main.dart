@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:device_preview/device_preview.dart';
+//import 'package:device_preview/device_preview.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -13,13 +14,14 @@ File _image;
 Future main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
+  //SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
+  SystemChrome.setEnabledSystemUIOverlays([]);
 
 
-  /*await SystemChrome.setPreferredOrientations([
+  await SystemChrome.setPreferredOrientations([
     DeviceOrientation.landscapeLeft,
     DeviceOrientation.landscapeRight,
-  ]);*/
+  ]);
 
   runApp(new MyApp());
 }
@@ -67,7 +69,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      builder: DevicePreview.appBuilder,
+      //builder: DevicePreview.appBuilder,
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
@@ -97,17 +99,25 @@ class Begin extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    double defaultScreenWidth = 180.0;
+    double defaultScreenHeight = 360.0;  ScreenUtil.instance = ScreenUtil(
+      width: defaultScreenWidth,
+      height: defaultScreenHeight,
+      allowFontScaling: true,
+    )..init(context);
+
     Color c1 = const Color(0xFFFFFF);
     return new Scaffold(
       backgroundColor: Colors.black,
 
       body: Container(
-        padding: EdgeInsets.only(top: 20, bottom: 0, right: 302, left: 48),
+        padding: EdgeInsets.only(top: ScreenUtil.instance.setWidth(15.0), bottom: ScreenUtil.instance.setWidth(0.0), right: ScreenUtil.instance.setHeight(364.0), left: ScreenUtil.instance.setHeight(28.0)),
         decoration: BoxDecoration(
           image: DecorationImage(
               image: AssetImage('images/actividad_main.jpg'),
               fit: BoxFit.cover,
-              alignment: Alignment.lerp(Alignment.bottomLeft, Alignment.bottomRight, 0.2)),
+              alignment: Alignment.lerp(Alignment.bottomLeft, Alignment.bottomRight, 0)),
         ),
 
         child: Column(
@@ -118,11 +128,11 @@ class Begin extends StatelessWidget {
                 Column(
                   children: <Widget>[
                     Padding(
-                      padding: EdgeInsets.only(right: 62.0),
+                      padding: EdgeInsets.only(right: ScreenUtil.instance.setHeight(62.0)),
 
                       child: FlatButton.icon(
 
-                        icon: Image.asset('images/avistamiento.png' ,width: 150,height: 60,),
+                        icon: Image.asset('images/avistamiento.png' ,width: ScreenUtil.instance.setHeight(150.0),height: ScreenUtil.instance.setHeight(60.0),),
                         color: c1,
 
                           label: Text("",style: TextStyle(
@@ -136,31 +146,13 @@ class Begin extends StatelessWidget {
                     )
                   ],
                 ),
-                Column(
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.only(right: 22.0),
 
-                      child: FlatButton.icon(
-                        icon: Image.asset('images/aprendamos.png' ,width: 150,height: 60,),
-                        color: Colors.transparent,//Colors.green,
-                        label: Text("",style: TextStyle(
-                            color: Colors.white, fontSize: 0.0)),
-                        shape: new RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0)),
-                        onPressed: () {
-                          Navigator.pushNamed(context, "/aprendamos");
-                        },
-                      ),
-                    )
-                  ],
-                ),
                 Column(
                   children: <Widget>[
                     Padding(
-                      padding: EdgeInsets.only(left: 2.0),
+                      padding: EdgeInsets.only(left: ScreenUtil.instance.setHeight(2.0)),
                       child: FlatButton.icon(
-                        icon: Image.asset('images/encr.png' ,width: 150,height: 60,),
+                        icon: Image.asset('images/encr.png' ,width: ScreenUtil.instance.setHeight(120.0),height: ScreenUtil.instance.setHeight(60.0),),
                         color: Colors.transparent,//Colors.green,
                         label: Text("",style: TextStyle(
                             color: Colors.white, fontSize: 0.0)),
@@ -176,9 +168,9 @@ class Begin extends StatelessWidget {
                 Column(
                   children: <Widget>[
                     Padding(
-                      padding: EdgeInsets.only(left: 22.0),
+                      padding: EdgeInsets.only(left: ScreenUtil.instance.setHeight(42.0)),
                       child: FlatButton.icon(
-                        icon: Image.asset('images/contactos.png' ,width: 150,height: 60,),
+                        icon: Image.asset('images/contactos.png' ,width: ScreenUtil.instance.setHeight(120.0),height: ScreenUtil.instance.setHeight(60.0),),
                         color: Colors.transparent,//Colors.green,
                         label: Text("",style: TextStyle(
                             color: Colors.white, fontSize: 0.0)),
@@ -193,9 +185,9 @@ class Begin extends StatelessWidget {
                 Column(
                   children: <Widget>[
                     Padding(
-                      padding: EdgeInsets.only(left: 62.0),
+                      padding: EdgeInsets.only(left: ScreenUtil.instance.setHeight(92.0)),
                       child: FlatButton.icon(
-                        icon: Image.asset('images/acercade.png' ,width: 150,height: 60,),
+                        icon: Image.asset('images/acercade.png' ,width: ScreenUtil.instance.setHeight(120.0),height: ScreenUtil.instance.setHeight(60.0),),
                         color: Colors.transparent,//Colors.green,
                         label: Text("",style: TextStyle(
                           color: Colors.white, fontSize: 0.0)),
@@ -212,6 +204,7 @@ class Begin extends StatelessWidget {
           ],
         ),
       ),
+
     );
   }
 }
@@ -267,6 +260,8 @@ class _SightingState extends State<Sighting> {
 
   final myControllerEmail = TextEditingController();
 
+
+
   Future getImage() async {
     var image = await ImagePicker.pickImage(source: ImageSource.camera);
 
@@ -281,22 +276,32 @@ class _SightingState extends State<Sighting> {
   @override
   Widget build(BuildContext context) {
 
-     // getImage();
+    double defaultScreenWidth = 180.0;
+    double defaultScreenHeight = 360.0;  ScreenUtil.instance = ScreenUtil(
+      width: defaultScreenWidth,
+      height: defaultScreenHeight,
+      allowFontScaling: true,
+    )..init(context);
 
+    //getImage();
     return new Scaffold(
       backgroundColor: Colors.black,
-      body: Container(
+      body:
+
+      Container(
 
         decoration: BoxDecoration(
           color: Colors.transparent,
           image: DecorationImage(
-              image: AssetImage('images/avistamientos-min(2).jpg'),
+              image: AssetImage('images/avistamiento-3.jpg'),
               fit: BoxFit.cover,
               alignment: Alignment.center
           ),
         ),
-        padding: EdgeInsets.only(top: 10, bottom: 10, right: 200, left: 200),
-        child: Column(
+
+        padding: EdgeInsets.only(top: ScreenUtil.instance.setWidth(6.0), bottom: ScreenUtil.instance.setWidth(5.0), right: ScreenUtil.instance.setHeight(200.0), left: ScreenUtil.instance.setHeight(200.0)),
+
+        child: SingleChildScrollView( child: Column(
           children: <Widget>[
 
             Column(
@@ -305,12 +310,12 @@ class _SightingState extends State<Sighting> {
                 Column(
                   children: <Widget>[
                     Padding(
-                      padding: EdgeInsets.only(bottom: 30),
+                      padding: EdgeInsets.only(bottom: ScreenUtil.instance.setWidth(5.0)),
                       child: Text(
                         'Reportes',
                         textAlign: TextAlign.center,
                         overflow: TextOverflow.ellipsis,
-                        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 30, ),
+                        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: ScreenUtil.instance.setSp(8.0), ),
                       ),
                     )
                   ],
@@ -321,7 +326,7 @@ class _SightingState extends State<Sighting> {
                       '¿Mordió? : ',
                       textAlign: TextAlign.center,
                       overflow: TextOverflow.ellipsis,
-                      style: TextStyle(fontWeight: FontWeight.normal, color: Colors.white, fontSize: 17, ),
+                      style: TextStyle(fontWeight: FontWeight.normal, color: Colors.white, fontSize: ScreenUtil.instance.setSp(5.0), ),
                     ),
                     Padding(
                       padding: EdgeInsets.all(0),
@@ -345,7 +350,7 @@ class _SightingState extends State<Sighting> {
                       '¿Llamó al 911? : ',
                       textAlign: TextAlign.center,
                       overflow: TextOverflow.ellipsis,
-                      style: TextStyle(fontWeight: FontWeight.normal, color: Colors.white, fontSize: 17, ),
+                      style: TextStyle(fontWeight: FontWeight.normal, color: Colors.white, fontSize: ScreenUtil.instance.setSp(5.0), ),
                     ),
                     Padding(
                       padding: EdgeInsets.all(0),
@@ -477,11 +482,11 @@ class _SightingState extends State<Sighting> {
                           Navigator.pushNamed(context, "/inicio");
                         },
                         child: SizedBox(
-                          width: 70,
-                          height: 30,
+                          width: ScreenUtil.instance.setHeight(70.0),
+                          height: ScreenUtil.instance.setHeight(30.0),
                           child: Center(
                             child:
-                            Text("Aceptar", textAlign: TextAlign.center),
+                            Text("Terminar", textAlign: TextAlign.center),
                           ),
                         ),
                       ),
@@ -493,7 +498,9 @@ class _SightingState extends State<Sighting> {
 
           ],
         ),
+        ),
       ),
+
 
       floatingActionButton: FloatingActionButton(
         hoverColor: Colors.black,
@@ -506,6 +513,8 @@ class _SightingState extends State<Sighting> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
 
+
+
     );
   }
 }
@@ -513,15 +522,19 @@ class _SightingState extends State<Sighting> {
 class Learn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final data = MediaQuery.of(context);
     return new Scaffold(
       backgroundColor: Colors.black,
       body: Container(
-        padding: EdgeInsets.only(top: 0, bottom: 10, right: 0, left: 392),
+        //padding: EdgeInsets.only(top: 0, bottom: 10, right: 0, left: 392),
+        padding: EdgeInsets.only(top: ScreenUtil.instance.setWidth(15.0), bottom: ScreenUtil.instance.setWidth(0.0), right: ScreenUtil.instance.setHeight(0.0), left: ScreenUtil.instance.setHeight(416.0)),
+        //padding: EdgeInsets.only(top: data.size.height/150, bottom: data.size.height/150, right: data.size.width/1050, left: data.size.height*1.0888),
+
         decoration: BoxDecoration(
           image: DecorationImage(
               image: AssetImage('images/actividad_aprendamos.jpg'),
               fit: BoxFit.cover,
-              alignment: Alignment.lerp(Alignment.bottomLeft, Alignment.bottomRight, 1)),
+              alignment: Alignment.lerp(Alignment.bottomLeft, Alignment.bottomRight, 0)),
         ),
         child: Column(
           children: <Widget>[
@@ -531,9 +544,10 @@ class Learn extends StatelessWidget {
                 Column(
                   children: <Widget>[
                     Padding(
-                      padding: EdgeInsets.all(10),
+                      padding: EdgeInsets.only(left: ScreenUtil.instance.setHeight(28.0)),
                       child: FlatButton.icon(
-                        icon: Image.asset('images/botones/ojos.png' ,width: 150,height: 50,),
+                        icon: Image.asset('images/botones/ojos.png' ,width: ScreenUtil.instance.setHeight(160.0) ,height: ScreenUtil.instance.setHeight(50.0),),
+                        //icon: Image.asset('images/botones/ojos.png' ,width: 150,height: 50,),
                         color: Colors.transparent,
 
                         label: Text("",style: TextStyle(
@@ -550,9 +564,9 @@ class Learn extends StatelessWidget {
                 Column(
                   children: <Widget>[
                     Padding(
-                      padding: EdgeInsets.all(10),
+                      padding: EdgeInsets.only(left: ScreenUtil.instance.setHeight(28.0)),
                       child: FlatButton.icon(
-                        icon: Image.asset('images/botones/cabeza.png' ,width: 150,height: 50,),
+                        icon: Image.asset('images/botones/cabeza.png' ,width: ScreenUtil.instance.setHeight(160.0) ,height: ScreenUtil.instance.setHeight(50.0),),
                         color: Colors.transparent,
 
                         label: Text("",style: TextStyle(
@@ -569,9 +583,9 @@ class Learn extends StatelessWidget {
                 Column(
                   children: <Widget>[
                     Padding(
-                      padding: EdgeInsets.all(10),
+                      padding: EdgeInsets.only(left: ScreenUtil.instance.setHeight(28.0)),
                       child: FlatButton.icon(
-                        icon: Image.asset('images/botones/escamas.png' ,width: 150,height: 50,),
+                        icon: Image.asset('images/botones/escamas.png' ,width: ScreenUtil.instance.setHeight(160.0) ,height: ScreenUtil.instance.setHeight(50.0),),
                         color: Colors.transparent,
 
                         label: Text("",style: TextStyle(
@@ -588,9 +602,9 @@ class Learn extends StatelessWidget {
                 Column(
                   children: <Widget>[
                     Padding(
-                      padding: EdgeInsets.all(10),
+                      padding: EdgeInsets.only(left: ScreenUtil.instance.setHeight(28.0)),
                       child: FlatButton.icon(
-                        icon: Image.asset('images/botones/foseta.png' ,width: 150,height: 50,),
+                        icon: Image.asset('images/botones/foseta.png' ,width: ScreenUtil.instance.setHeight(160.0) ,height: ScreenUtil.instance.setHeight(50.0),),
                         color: Colors.transparent,
 
                         label: Text("",style: TextStyle(
@@ -607,9 +621,9 @@ class Learn extends StatelessWidget {
                 Column(
                   children: <Widget>[
                     Padding(
-                      padding: EdgeInsets.all(10),
+                      padding: EdgeInsets.only(left: ScreenUtil.instance.setHeight(28.0)),
                       child: FlatButton.icon(
-                        icon: Image.asset('images/botones/corales.png' ,width: 150,height: 50,),
+                        icon: Image.asset('images/botones/corales.png' ,width: ScreenUtil.instance.setHeight(160.0) ,height: ScreenUtil.instance.setHeight(50.0),),
                         color: Colors.transparent,
 
                         label: Text("",style: TextStyle(
@@ -628,6 +642,21 @@ class Learn extends StatelessWidget {
           ],
         ),
       ),
+      floatingActionButton: Padding(
+        padding: EdgeInsets.only(right: ScreenUtil.instance.setHeight(525.0)),
+        child: FloatingActionButton(
+          hoverColor: Colors.black,
+          backgroundColor: Colors.white,
+          foregroundColor: Colors.black,
+          mini: true,
+          tooltip: 'Volver',
+          onPressed: () async {
+            Navigator.pushNamed(context, "/encr");
+          },
+          child: Icon(Icons.arrow_back),
+
+        ),
+      ),
     );
   }
 }
@@ -637,14 +666,60 @@ class InCR extends StatelessWidget {
     return new Scaffold(
       backgroundColor: Colors.black,
       body: Container(
-        padding: EdgeInsets.only(top: 30, bottom: 10, right: 466, left: 10),
+        padding: EdgeInsets.only(top: ScreenUtil.instance.setWidth(84.0), bottom: ScreenUtil.instance.setWidth(0.0), right: ScreenUtil.instance.setHeight(56.0), left: ScreenUtil.instance.setHeight(355.0)),
+        //padding: EdgeInsets.only(top: ScreenUtil.instance.setWidth(15.0), bottom: ScreenUtil.instance.setWidth(0.0), right: ScreenUtil.instance.setHeight(364.0), left: ScreenUtil.instance.setHeight(28.0)),
         decoration: BoxDecoration(
           image: DecorationImage(
               image: AssetImage('images/cr.jpg'),
               fit: BoxFit.cover,
-              alignment: Alignment.center),
+              alignment: Alignment.lerp(Alignment.bottomLeft, Alignment.bottomRight, ScreenUtil.instance.setHeight(1.0))),
+        ),
+        child: Column(
+          children: <Widget>[
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Column(
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.only(left: ScreenUtil.instance.setHeight(43.0)),
+                      child: FlatButton.icon(
+                        icon: Image.asset('images/aprendamos.png' ,width: ScreenUtil.instance.setHeight(150.0), height: ScreenUtil.instance.setHeight(50.0),),
+                        color: Colors.transparent,
+
+                        label: Text("",style: TextStyle(
+                            color: Colors.transparent, fontSize: 0.0)),
+                        shape: new RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0)),
+                        onPressed: () {
+                          Navigator.pushNamed(context, "/aprendamos");
+                        },
+                      ),
+                    )
+                  ],
+                ),
+              ],
+            ),
+          ],
         ),
       ),
+
+      floatingActionButton: Padding(
+        padding: EdgeInsets.only(right: ScreenUtil.instance.setHeight(525.0)),
+        child: FloatingActionButton(
+          hoverColor: Colors.black,
+          backgroundColor: Colors.white,
+          foregroundColor: Colors.black,
+          mini: true,
+          tooltip: 'Volver',
+          onPressed: () async {
+            Navigator.pushNamed(context, "/inicio");
+          },
+          child: Icon(Icons.arrow_back),
+
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 }
@@ -654,14 +729,30 @@ class Contacts extends StatelessWidget {
     return new Scaffold(
       backgroundColor: Colors.black,
       body: Container(
-        padding: EdgeInsets.only(top: 30, bottom: 10, right: 466, left: 10),
+        padding: EdgeInsets.only(top: ScreenUtil.instance.setWidth(84.0), bottom: ScreenUtil.instance.setWidth(0.0), right: ScreenUtil.instance.setHeight(66.0), left: ScreenUtil.instance.setHeight(355.0)),
         decoration: BoxDecoration(
           image: DecorationImage(
-              image: AssetImage('images/actividad_contacto.jpg'),
+              image: AssetImage('images/contactos.jpg'),
               fit: BoxFit.cover,
               alignment: Alignment.center),
         ),
       ),
+        floatingActionButton: Padding(
+          padding: EdgeInsets.only(right: ScreenUtil.instance.setHeight(525.0)),
+          child: FloatingActionButton(
+            hoverColor: Colors.black,
+            backgroundColor: Colors.white,
+            foregroundColor: Colors.black,
+            mini: true,
+            tooltip: 'Volver',
+            onPressed: () async {
+              Navigator.pushNamed(context, "/inicio");
+            },
+            child: Icon(Icons.arrow_back),
+
+          ),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.endDocked
     );
   }
 }
@@ -671,7 +762,7 @@ class About extends StatelessWidget {
     return new Scaffold(
       backgroundColor: Colors.black,
       body: Container(
-        padding: EdgeInsets.only(top: 30, bottom: 10, right: 466, left: 10),
+        padding: EdgeInsets.only(top: ScreenUtil.instance.setWidth(30.0), bottom: ScreenUtil.instance.setWidth(10.0), right: ScreenUtil.instance.setHeight(466.0), left: ScreenUtil.instance.setHeight(10.0)),
         decoration: BoxDecoration(
           image: DecorationImage(
               image: AssetImage('images/actividad_about.png'),
@@ -679,6 +770,23 @@ class About extends StatelessWidget {
               alignment: Alignment.center),
         ),
       ),
+
+      floatingActionButton: Padding(
+        padding: EdgeInsets.only(right: ScreenUtil.instance.setHeight(525.0)),
+        child: FloatingActionButton(
+        hoverColor: Colors.black,
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
+        mini: true,
+        tooltip: 'Volver',
+        onPressed: () async {
+          Navigator.pushNamed(context, "/inicio");
+        },
+        child: Icon(Icons.arrow_back),
+
+        ),
+      ),
+      //floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 }
@@ -691,12 +799,27 @@ class Eyes extends StatelessWidget {
     return new Scaffold(
       backgroundColor: Colors.black,
       body: Container(
-        padding: EdgeInsets.only(top: 30, bottom: 10, right: 466, left: 10),
+        padding: EdgeInsets.only(top: ScreenUtil.instance.setWidth(30.0), bottom: ScreenUtil.instance.setWidth(10.0), right: ScreenUtil.instance.setHeight(466.0), left: ScreenUtil.instance.setHeight(10.0)),
         decoration: BoxDecoration(
           image: DecorationImage(
               image: AssetImage('images/ojos.jpg'),
               fit: BoxFit.cover,
               alignment: Alignment.center),
+        ),
+      ),
+      floatingActionButton: Padding(
+        padding: EdgeInsets.only(right: ScreenUtil.instance.setHeight(525.0)),
+        child: FloatingActionButton(
+          hoverColor: Colors.black,
+          backgroundColor: Colors.white,
+          foregroundColor: Colors.black,
+          mini: true,
+          tooltip: 'Volver',
+          onPressed: () async {
+            Navigator.pushNamed(context, "/aprendamos");
+          },
+          child: Icon(Icons.arrow_back),
+
         ),
       ),
     );
@@ -708,12 +831,27 @@ class Head extends StatelessWidget {
     return new Scaffold(
       backgroundColor: Colors.black,
       body: Container(
-        padding: EdgeInsets.only(top: 30, bottom: 10, right: 466, left: 10),
+        padding: EdgeInsets.only(top: ScreenUtil.instance.setWidth(30.0), bottom: ScreenUtil.instance.setWidth(10.0), right: ScreenUtil.instance.setHeight(466.0), left: ScreenUtil.instance.setHeight(10.0)),
         decoration: BoxDecoration(
           image: DecorationImage(
               image: AssetImage('images/cabeza.jpg'),
               fit: BoxFit.cover,
               alignment: Alignment.center),
+        ),
+      ),
+      floatingActionButton: Padding(
+        padding: EdgeInsets.only(right: ScreenUtil.instance.setHeight(525.0)),
+        child: FloatingActionButton(
+          hoverColor: Colors.black,
+          backgroundColor: Colors.white,
+          foregroundColor: Colors.black,
+          mini: true,
+          tooltip: 'Volver',
+          onPressed: () async {
+            Navigator.pushNamed(context, "/aprendamos");
+          },
+          child: Icon(Icons.arrow_back),
+
         ),
       ),
     );
@@ -725,12 +863,27 @@ class Scales extends StatelessWidget {
     return new Scaffold(
       backgroundColor: Colors.black,
       body: Container(
-        padding: EdgeInsets.only(top: 30, bottom: 10, right: 466, left: 10),
+        padding: EdgeInsets.only(top: ScreenUtil.instance.setWidth(30.0), bottom: ScreenUtil.instance.setWidth(10.0), right: ScreenUtil.instance.setHeight(466.0), left: ScreenUtil.instance.setHeight(10.0)),
         decoration: BoxDecoration(
           image: DecorationImage(
               image: AssetImage('images/escamas.jpg'),
               fit: BoxFit.cover,
               alignment: Alignment.center),
+        ),
+      ),
+      floatingActionButton: Padding(
+        padding: EdgeInsets.only(right: ScreenUtil.instance.setHeight(525.0)),
+        child: FloatingActionButton(
+          hoverColor: Colors.black,
+          backgroundColor: Colors.white,
+          foregroundColor: Colors.black,
+          mini: true,
+          tooltip: 'Volver',
+          onPressed: () async {
+            Navigator.pushNamed(context, "/aprendamos");
+          },
+          child: Icon(Icons.arrow_back),
+
         ),
       ),
     );
@@ -742,12 +895,27 @@ class LorealPit extends StatelessWidget {
     return new Scaffold(
       backgroundColor: Colors.black,
       body: Container(
-        padding: EdgeInsets.only(top: 30, bottom: 10, right: 466, left: 10),
+        padding: EdgeInsets.only(top: ScreenUtil.instance.setWidth(30.0), bottom: ScreenUtil.instance.setWidth(10.0), right: ScreenUtil.instance.setHeight(466.0), left: ScreenUtil.instance.setHeight(10.0)),
         decoration: BoxDecoration(
           image: DecorationImage(
               image: AssetImage('images/foseta_loreal.jpg'),
               fit: BoxFit.cover,
               alignment: Alignment.center),
+        ),
+      ),
+      floatingActionButton: Padding(
+        padding: EdgeInsets.only(right: ScreenUtil.instance.setHeight(525.0)),
+        child: FloatingActionButton(
+          hoverColor: Colors.black,
+          backgroundColor: Colors.white,
+          foregroundColor: Colors.black,
+          mini: true,
+          tooltip: 'Volver',
+          onPressed: () async {
+            Navigator.pushNamed(context, "/aprendamos");
+          },
+          child: Icon(Icons.arrow_back),
+
         ),
       ),
     );
@@ -759,12 +927,27 @@ class Corals extends StatelessWidget {
     return new Scaffold(
       backgroundColor: Colors.black,
       body: Container(
-        padding: EdgeInsets.only(top: 30, bottom: 10, right: 466, left: 10),
+        padding: EdgeInsets.only(top: ScreenUtil.instance.setWidth(30.0), bottom: ScreenUtil.instance.setWidth(10.0), right: ScreenUtil.instance.setHeight(466.0), left: ScreenUtil.instance.setHeight(10.0)),
         decoration: BoxDecoration(
           image: DecorationImage(
               image: AssetImage('images/corales.jpg'),
               fit: BoxFit.cover,
               alignment: Alignment.center),
+        ),
+      ),
+      floatingActionButton: Padding(
+        padding: EdgeInsets.only(right: ScreenUtil.instance.setHeight(525.0)),
+        child: FloatingActionButton(
+          hoverColor: Colors.black,
+          backgroundColor: Colors.white,
+          foregroundColor: Colors.black,
+          mini: true,
+          tooltip: 'Volver',
+          onPressed: () async {
+            Navigator.pushNamed(context, "/aprendamos");
+          },
+          child: Icon(Icons.arrow_back),
+
         ),
       ),
     );

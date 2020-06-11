@@ -665,9 +665,11 @@ class InCR extends StatelessWidget {
   Widget build(BuildContext context) {
     return new Scaffold(
       backgroundColor: Colors.black,
+
       body: Container(
-        padding: EdgeInsets.only(top: ScreenUtil.instance.setWidth(84.0), bottom: ScreenUtil.instance.setWidth(0.0), right: ScreenUtil.instance.setHeight(56.0), left: ScreenUtil.instance.setHeight(355.0)),
+        padding: EdgeInsets.only(top: ScreenUtil.instance.setWidth(84.0), bottom: ScreenUtil.instance.setWidth(0.0), right: ScreenUtil.instance.setHeight(70.5), left: ScreenUtil.instance.setHeight(323.0)),
         //padding: EdgeInsets.only(top: ScreenUtil.instance.setWidth(15.0), bottom: ScreenUtil.instance.setWidth(0.0), right: ScreenUtil.instance.setHeight(364.0), left: ScreenUtil.instance.setHeight(28.0)),
+
         decoration: BoxDecoration(
           image: DecorationImage(
               image: AssetImage('images/cr.jpg'),
@@ -682,7 +684,8 @@ class InCR extends StatelessWidget {
                 Column(
                   children: <Widget>[
                     Padding(
-                      padding: EdgeInsets.only(left: ScreenUtil.instance.setHeight(43.0)),
+                      padding: EdgeInsets.only(left: ScreenUtil.instance.setWidth(17.0)),
+
                       child: FlatButton.icon(
                         icon: Image.asset('images/aprendamos.png' ,width: ScreenUtil.instance.setHeight(150.0), height: ScreenUtil.instance.setHeight(50.0),),
                         color: Colors.transparent,
@@ -695,6 +698,7 @@ class InCR extends StatelessWidget {
                           Navigator.pushNamed(context, "/aprendamos");
                         },
                       ),
+
                     )
                   ],
                 ),
@@ -702,6 +706,7 @@ class InCR extends StatelessWidget {
             ),
           ],
         ),
+
       ),
 
       floatingActionButton: Padding(

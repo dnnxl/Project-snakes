@@ -250,6 +250,8 @@ class _SightingState extends State<Sighting> {
   var fecha = DateTime.now();
 
   var imagenes = 0;
+  var modo1 = 1;
+  var modo2 = 0;
 
   bool checkBoxValueBite = false;
   bool checkBoxValueCall911 = false;
@@ -263,19 +265,21 @@ class _SightingState extends State<Sighting> {
 
 
   Future getImage() async {
-    var image = await ImagePicker.pickImage(source: ImageSource.camera);
-
     //print(position == null ? 'Unknown' : position.latitude.toString() + ', ' + position.longitude.toString());
     //setState(() {
-    _image = image;
-    imagenes = imagenes + 1;
-    print(imagenes);
+    if( modo1 == 1 || modo2 == 1){
+      var image = await ImagePicker.pickImage(source: ImageSource.camera);
+      _image = image;
+      imagenes = imagenes + 1;
+      print(imagenes);
+      modo1 = 0;
+      modo2 = 0;
+    }
     //});
   }
 
   @override
   Widget build(BuildContext context) {
-
     double defaultScreenWidth = 180.0;
     double defaultScreenHeight = 360.0;  ScreenUtil.instance = ScreenUtil(
       width: defaultScreenWidth,
@@ -283,7 +287,7 @@ class _SightingState extends State<Sighting> {
       allowFontScaling: true,
     )..init(context);
 
-    //getImage();
+    getImage();
     return new Scaffold(
       backgroundColor: Colors.black,
       body:
@@ -323,7 +327,7 @@ class _SightingState extends State<Sighting> {
                 Row(
                   children: <Widget>[
                     Text(
-                      '¿Mordió? : ',
+                      '¿Hubo mordedura? : ',
                       textAlign: TextAlign.center,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(fontWeight: FontWeight.normal, color: Colors.white, fontSize: ScreenUtil.instance.setSp(5.0), ),
@@ -506,7 +510,10 @@ class _SightingState extends State<Sighting> {
         hoverColor: Colors.black,
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
-        onPressed: getImage,
+        onPressed: () {
+          modo2 = 1;
+          getImage();
+        },
         tooltip: 'Pick Image',
         child: Icon(Icons.add_a_photo),
 

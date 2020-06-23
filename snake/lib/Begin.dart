@@ -66,6 +66,8 @@ class Begin extends StatelessWidget {
                   ],
                 ),
                 Column(
+
+                  //Comentario de prueba, borrar luego
                   children: <Widget>[
                     Padding(
                       padding: EdgeInsets.all(10),
@@ -93,7 +95,7 @@ class Begin extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.all(10),
                       child: RaisedButton(
-                        color: Colors.teal,
+                        color: Colors.green,
                         shape: new RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10.0)),
                         onPressed: () {

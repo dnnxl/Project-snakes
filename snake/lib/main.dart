@@ -128,11 +128,11 @@ class Begin extends StatelessWidget {
                 Column(
                   children: <Widget>[
                     Padding(
-                      padding: EdgeInsets.only(right: ScreenUtil.instance.setHeight(62.0)),
+                      padding: EdgeInsets.only(right: ScreenUtil.instance.setHeight(32.0)),
 
                       child: FlatButton.icon(
 
-                        icon: Image.asset('images/avistamiento.png' ,width: ScreenUtil.instance.setHeight(150.0),height: ScreenUtil.instance.setHeight(60.0),),
+                        icon: Image.asset('images/avistamiento.png' ,width: ScreenUtil.instance.setHeight(180.0),height: ScreenUtil.instance.setHeight(70.0),),
                         color: c1,
 
                           label: Text("",style: TextStyle(
@@ -373,68 +373,18 @@ class _SightingState extends State<Sighting> {
                     ),
                   ],
                 ),
-                /*Column(
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.all(0),
-                      child: TextFormField(
-                        decoration: const InputDecoration(
-                          icon: Icon(Icons.person),
-                          hintText: 'Ingrese su nombre',
-                          labelText: 'Nombre *',
-                          fillColor: Colors.black,
-                          hoverColor: Colors.black,
 
-                        ),
-                        controller: myControllerName,
-                        onSaved: (String value) {
-                          // This optional block of code can be used to run
-                          // code when the user saves the form.
-                        },
-                        validator: (String value) {
-                          return value.contains('@') ? 'Do not use the @ char.' : null;
-                        },
-                      ),
-                    )
-                  ],
-                ),*/
+
                 Column(
                   children: <Widget>[
                     Padding(
                       padding: EdgeInsets.all(0),
                       child: TextFormField(
-                        decoration: const InputDecoration(
-                          icon: Icon(Icons.email),
-                          hintText: 'Ingrese su correo',
-                          labelText: 'Correo *',
-                          fillColor: Colors.white,
-                          hoverColor: Colors.white,
-                          focusColor: Colors.white,
-
-
-                        ),
                         cursorColor: Colors.white,
-                        controller: myControllerEmail,
-                        onSaved: (String value) {
-                          // This optional block of code can be used to run
-                          // code when the user saves the form.
-                        },
-                        validator: (String value) {
-                          return value.contains('@') ? 'Do not use the @ char.' : null;
-                        },
-                      ),
-                    )
-                  ],
-                ),
-                Column(
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.all(0),
-                      child: TextFormField(
                         decoration: const InputDecoration(
                           icon: Icon(Icons.insert_comment),
                           hintText: 'Ingrese la descripción',
-                          labelText: 'Descripción *',
+                          labelText: 'Descripción',
 
                         ),
                         controller: myControllerDescription,
@@ -453,7 +403,7 @@ class _SightingState extends State<Sighting> {
                 Column(
                   children: <Widget>[
                     Padding(
-                      padding: EdgeInsets.all(0),
+                      padding: EdgeInsets.all(40),
                       child: FlatButton(
                         color: Colors.green,
                         shape: new RoundedRectangleBorder(

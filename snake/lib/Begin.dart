@@ -1,13 +1,5 @@
-import 'dart:async';
-import 'dart:io';
-//import 'package:device_preview/device_preview.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:http/http.dart';
-import 'package:image_picker/image_picker.dart';
-import 'dart:convert';
 
 class Begin extends StatelessWidget {
 
@@ -26,7 +18,7 @@ class Begin extends StatelessWidget {
       backgroundColor: Colors.black,
 
       body: Container(
-        padding: EdgeInsets.only(top: ScreenUtil.instance.setWidth(15.0), bottom: ScreenUtil.instance.setWidth(0.0), right: ScreenUtil.instance.setHeight(364.0), left: ScreenUtil.instance.setHeight(28.0)),
+        padding: EdgeInsets.only(top: ScreenUtil.instance.setWidth(10.0), bottom: ScreenUtil.instance.setWidth(0.0), right: ScreenUtil.instance.setHeight(364.0), left: ScreenUtil.instance.setHeight(28.0)),
         decoration: BoxDecoration(
           image: DecorationImage(
               image: AssetImage('images/actividad_main.jpg'),

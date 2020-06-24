@@ -1,13 +1,9 @@
 import 'dart:async';
 import 'dart:io';
-//import 'package:device_preview/device_preview.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
-import 'dart:convert';
 import 'Services.dart';
 
 File _image;

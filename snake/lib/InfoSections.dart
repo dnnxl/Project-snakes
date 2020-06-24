@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 class Learn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final data = MediaQuery.of(context);
+    //final data = MediaQuery.of(context);
     return new Scaffold(
       backgroundColor: Colors.black,
       body: Container(

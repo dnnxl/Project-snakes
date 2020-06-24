@@ -1,19 +1,39 @@
+import 'dart:async';
+import 'dart:io';
+//import 'package:device_preview/device_preview.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:http/http.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:convert';
 
 class Begin extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
+
+    double defaultScreenWidth = 180.0;
+    double defaultScreenHeight = 360.0;  ScreenUtil.instance = ScreenUtil(
+      width: defaultScreenWidth,
+      height: defaultScreenHeight,
+      allowFontScaling: true,
+    )..init(context);
+
+    Color c1 = const Color(0xFFFFFF);
     return new Scaffold(
       backgroundColor: Colors.black,
+
       body: Container(
-        padding: EdgeInsets.only(top: 30, bottom: 10, right: 418, left: 60),
+        padding: EdgeInsets.only(top: ScreenUtil.instance.setWidth(15.0), bottom: ScreenUtil.instance.setWidth(0.0), right: ScreenUtil.instance.setHeight(364.0), left: ScreenUtil.instance.setHeight(28.0)),
         decoration: BoxDecoration(
           image: DecorationImage(
               image: AssetImage('images/actividad_main.jpg'),
-              //fit: BoxFit.cover,
-              alignment: Alignment.center),
+              fit: BoxFit.cover,
+              alignment: Alignment.lerp(Alignment.bottomLeft, Alignment.bottomRight, 0)),
         ),
+
         child: Column(
           children: <Widget>[
             Column(
@@ -22,22 +42,39 @@ class Begin extends StatelessWidget {
                 Column(
                   children: <Widget>[
                     Padding(
-                      padding: EdgeInsets.all(10),
-                      child: RaisedButton(
-                        color: Colors.green,
+                      padding: EdgeInsets.only(right: ScreenUtil.instance.setHeight(32.0)),
+
+                      child: FlatButton.icon(
+
+                        icon: Image.asset('images/avistamiento.png' ,width: ScreenUtil.instance.setHeight(180.0),height: ScreenUtil.instance.setHeight(70.0),),
+                        color: c1,
+
+                        label: Text("",style: TextStyle(
+                            color: Colors.transparent, fontSize: 0.0)),
+                        shape: new RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0)),
+                        onPressed: () {
+                          Navigator.pushNamed(context, "/sighting");
+                        },
+                      ),
+                    )
+                  ],
+                ),
+
+                Column(
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.only(left: ScreenUtil.instance.setHeight(2.0)),
+                      child: FlatButton.icon(
+                        icon: Image.asset('images/encr.png' ,width: ScreenUtil.instance.setHeight(120.0),height: ScreenUtil.instance.setHeight(60.0),),
+                        color: Colors.transparent,//Colors.green,
+                        label: Text("",style: TextStyle(
+                            color: Colors.white, fontSize: 0.0)),
                         shape: new RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10.0)),
                         onPressed: () {
                           Navigator.pushNamed(context, "/encr");
                         },
-                        child: SizedBox(
-                          width: 70,
-                          height: 30,
-                          child: Center(
-                            child:
-                            Text("En Costa Rica", textAlign: TextAlign.center),
-                          ),
-                        ),
                       ),
                     )
                   ],
@@ -45,47 +82,16 @@ class Begin extends StatelessWidget {
                 Column(
                   children: <Widget>[
                     Padding(
-                      padding: EdgeInsets.all(10),
-                      child: RaisedButton(
-                        color: Colors.green,
+                      padding: EdgeInsets.only(left: ScreenUtil.instance.setHeight(42.0)),
+                      child: FlatButton.icon(
+                        icon: Image.asset('images/contactos.png' ,width: ScreenUtil.instance.setHeight(120.0),height: ScreenUtil.instance.setHeight(60.0),),
+                        color: Colors.transparent,//Colors.green,
+                        label: Text("",style: TextStyle(
+                            color: Colors.white, fontSize: 0.0)),
                         shape: new RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10.0)),
                         onPressed: () {
-                          Navigator.pushNamed(context, "/aprendamos");
-                        },
-                        child: SizedBox(
-                          width: 70,
-                          height: 30,
-                          child: Center(
-                            child:
-                            Text("Aprendamos", textAlign: TextAlign.center),
-                          ),
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-                Column(
-
-                  //Comentario de prueba, borrar luego
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.all(10),
-                      child: RaisedButton(
-                        color: Colors.green,
-                        shape: new RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0)),
-                        onPressed: () {
-                          Navigator.pushNamed(context, "/contactos");
-                        },
-                        child: SizedBox(
-                          width: 70,
-                          height: 30,
-                          child: Center(
-                            child:
-                            Text("Contactos", textAlign: TextAlign.center),
-                          ),
-                        ),
+                          Navigator.pushNamed(context, "/contactos");},
                       ),
                     )
                   ],
@@ -93,22 +99,16 @@ class Begin extends StatelessWidget {
                 Column(
                   children: <Widget>[
                     Padding(
-                      padding: EdgeInsets.all(10),
-                      child: RaisedButton(
-                        color: Colors.green,
+                      padding: EdgeInsets.only(left: ScreenUtil.instance.setHeight(92.0)),
+                      child: FlatButton.icon(
+                        icon: Image.asset('images/acercade.png' ,width: ScreenUtil.instance.setHeight(120.0),height: ScreenUtil.instance.setHeight(60.0),),
+                        color: Colors.transparent,//Colors.green,
+                        label: Text("",style: TextStyle(
+                            color: Colors.white, fontSize: 0.0)),
                         shape: new RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10.0)),
                         onPressed: () {
-                          Navigator.pushNamed(context, "/acercade");
-                        },
-                        child: SizedBox(
-                          width: 70,
-                          height: 30,
-                          child: Center(
-                            child:
-                            Text("Acerca de", textAlign: TextAlign.center),
-                          ),
-                        ),
+                          Navigator.pushNamed(context, "/acercade");},
                       ),
                     )
                   ],
@@ -118,6 +118,7 @@ class Begin extends StatelessWidget {
           ],
         ),
       ),
+
     );
   }
 }

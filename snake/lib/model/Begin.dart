@@ -1,5 +1,6 @@
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
+import 'package:snake/bloc/provider.dart';
 
 class Begin extends StatelessWidget {
 
@@ -12,6 +13,8 @@ class Begin extends StatelessWidget {
       height: defaultScreenHeight,
       allowFontScaling: true,
     )..init(context);
+
+    final bloc = Provider.of(context);
 
     Color c1 = const Color(0xFFFFFF);
     return new Scaffold(
@@ -110,7 +113,18 @@ class Begin extends StatelessWidget {
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        hoverColor: Colors.black,
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
+        tooltip: "Salir",
+        onPressed: () async {
+          Navigator.pushNamed(context, "login");
+        },
+        child: Icon(Icons.exit_to_app),
 
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 }

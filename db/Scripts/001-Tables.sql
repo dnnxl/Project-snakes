@@ -1,3 +1,10 @@
+CREATE TABLE `IMAGE` (
+  `idImage` INT,
+  `snakeType` TINY INT,
+  `idSighting` INT,
+  PRIMARY KEY (`idImage`),
+  KEY `FK` (`idSighting`)
+);
 
 CREATE TABLE `SIGHTING` (
   `idSighting` INT,
@@ -5,23 +12,15 @@ CREATE TABLE `SIGHTING` (
   `dateSighting` DATE,
   `xCoordinate` FLOAT,
   `yCoordinate` FLOAT,
-  `bite` TINYINT,
-  `call` TINYINT,
+  `bite` TINY INT,
+  `call` TINY INT,
   `date` DATE,
   `idUser` INT,
   PRIMARY KEY (`idSighting`),
-  CONSTRAINT FK_idUser FOREIGN KEY (`idUser`) REFERENCES USER_SNAKE(`idUser`)
+  KEY `FK` (`idUser`)
 );
 
-CREATE TABLE `IMAGE_SNAKE` (
-  `idImage` INT,
-  `snakeType` TINYINT,
-  `idSighting` INT,
-  PRIMARY KEY (`idImage`),
-  CONSTRAINT FK_idSighting FOREIGN KEY (`idSighting`) REFERENCES SIGHTING(`idSighting`)
-);
-
-CREATE TABLE `USER_SNAKE` (
+CREATE TABLE `USER` (
   `idUser` INT,
   `username` VARCHAR(200),
   `mail` VARCHAR(200),
@@ -46,13 +45,3 @@ CREATE TABLE `INFORMATION` (
   PRIMARY KEY (`idInfo`)
 );
 
-CREATE TABLE `USER_ANSWER_SIGHTING` (
-  `idAnswer` INT,
-  `answerText` VARCHAR(200),
-  `dateAnswer` DATE,
-  `idUser` INT,
-  `idSighting` INT,
-  PRIMARY KEY (`idAnswer`),
-  CONSTRAINT FK_idUserAnswer FOREIGN KEY (`idUser`) REFERENCES USER_SNAKE(`idUser`)
-  CONSTRAINT FK_idSightingAnswer FOREIGN KEY (`idSighting`) REFERENCES SIGHTING(`idSighting`)
-);

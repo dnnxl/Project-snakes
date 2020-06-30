@@ -138,10 +138,10 @@ class LoginPage extends StatelessWidget {
               color: Color.fromRGBO(255, 45, 102, 1.0)
             ),
             prefixIcon: Icon(
-              Icons.alternate_email,
+              Icons.person_outline,
               color: Color.fromRGBO(39, 204, 192, 1.0),
             ),
-            hintText: "Email",
+            hintText: "Usuario",
             hintStyle: TextStyle(
               color: Colors.white.withOpacity(0.5)
             ),

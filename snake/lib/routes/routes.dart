@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:snake/pages/home_page.dart';
 
 import 'package:snake/pages/login_page.dart';
+import 'package:snake/pages/signup_page.dart';
 
 import 'package:snake/model/Begin.dart';
 import 'package:snake/model/InfoSections.dart';
@@ -12,6 +13,7 @@ Map<String, WidgetBuilder> getRoutes() {
 
   return <String, WidgetBuilder> {
     'login'       : (BuildContext context) => LoginPage(),
+    'signup'       : (BuildContext context) => SignupPage(),
     'home'       : (BuildContext context) => HomePage(),
     "/inicio": (BuildContext context) => Begin(),
 

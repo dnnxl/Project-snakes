@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:snake/bloc/provider.dart';
 
-class LoginPage extends StatelessWidget {
+class SignupPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +44,7 @@ class LoginPage extends StatelessWidget {
           children: <Widget>[
             SizedBox(width: 10.0),
             _logo(),
-            SizedBox(height: 40.0),
+            SizedBox(height: 20.0),
             _form(context),
             Spacer(),
             Row(
@@ -53,7 +53,7 @@ class LoginPage extends StatelessWidget {
                 FlatButton(
                   child: Text("CREAR CUENTA"),
                   textColor: Colors.white,
-                  onPressed: () {Navigator.pushReplacementNamed(context, 'signup');},
+                  onPressed: () {Navigator.pushReplacementNamed(context, 'home');},
                 ),
                 Container(
                   color: Colors.white.withOpacity(0.1),
@@ -85,7 +85,7 @@ class LoginPage extends StatelessWidget {
             color: Color.fromRGBO(255, 45, 102, 1.0),
           ),*/
           Text(
-            "Login",
+            "Registro",
             style: TextStyle(
               fontSize: 30.0,
               fontWeight: FontWeight.bold,

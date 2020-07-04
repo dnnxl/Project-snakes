@@ -60,7 +60,6 @@ flutter:
   assets:
   - images/icp.jpg
   - images/corales.jpg
-  - images/actividad_main.jpg
   - images/cr.jpg
   - images/actividad_aprendamos.jpg
   - images/actividad_contacto.jpg
@@ -70,11 +69,9 @@ flutter:
   - images/escamas.jpg
   - images/foseta_loreal.jpg
   - images/corales.jpg
-  - images/acercade.jpeg
   - images/apracticar.jpeg
   - images/aprendamos.jpeg
   - images/contacto.jpeg
-  - images/acercade.png
   - images/aprendamos.png
   - images/contactos.png
   - images/encr.png
@@ -90,6 +87,8 @@ flutter:
   - images/avistamientos-min(2).jpg
   - images/contactos.jpg
   - images/avistamiento-3.jpg
+  - images/principal.png
+  - images/credits.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

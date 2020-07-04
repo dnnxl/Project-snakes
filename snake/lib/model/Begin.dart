@@ -24,7 +24,7 @@ class Begin extends StatelessWidget {
         padding: EdgeInsets.only(top: ScreenUtil.instance.setWidth(10.0), bottom: ScreenUtil.instance.setWidth(0.0), right: ScreenUtil.instance.setHeight(364.0), left: ScreenUtil.instance.setHeight(28.0)),
         decoration: BoxDecoration(
           image: DecorationImage(
-              image: AssetImage('images/actividad_main.jpg'),
+              image: AssetImage('images/principal.png'),
               fit: BoxFit.cover,
               alignment: Alignment.lerp(Alignment.bottomLeft, Alignment.bottomRight, 0)),
         ),
@@ -96,7 +96,7 @@ class Begin extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.only(left: ScreenUtil.instance.setHeight(92.0)),
                       child: FlatButton.icon(
-                        icon: Image.asset('images/acercade.png' ,width: ScreenUtil.instance.setHeight(120.0),height: ScreenUtil.instance.setHeight(60.0),),
+                        icon: Image.asset('images/credits.png' ,width: ScreenUtil.instance.setHeight(120.0),height: ScreenUtil.instance.setHeight(60.0),),
                         color: Colors.transparent,//Colors.green,
                         label: Text("",style: TextStyle(
                             color: Colors.white, fontSize: 0.0)),

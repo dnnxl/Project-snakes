@@ -1,21 +1,50 @@
 import 'package:flutter/material.dart';
 import 'package:snake/bloc/provider.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 
 class SignupPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
-      body: Stack(
-
+      backgroundColor: Colors.black,
+      body: SingleChildScrollView( child: Container(
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment(1.0, -1.0),
+                end: Alignment(1.0, 1.0),
+                colors: <Color> [
+                  Color.fromRGBO(43, 47, 62, 1.0),
+                  Color.fromRGBO(37, 40, 52, 1.0)
+                ]
+            )
+        ),
+        child: Column(
         children: <Widget>[
-
-          _background(),
+          //_background(),
           _loginForm(context)
         ],
+        ),
+        ),
       ),
-      resizeToAvoidBottomInset: false
+
+      floatingActionButton: Padding(
+        padding: EdgeInsets.only(right: 500),
+        child: FloatingActionButton(
+          hoverColor: Colors.black,
+          backgroundColor: Colors.white,
+          foregroundColor: Colors.black,
+          mini: true,
+          tooltip: 'Volver',
+          onPressed: () async {
+            Navigator.pushNamed(context, "login");
+          },
+          child: Icon(Icons.arrow_back),
+
+      ),
+    ),
+      //resizeToAvoidBottomInset: false
       //resizeToAvoidBottomPadding: false,
     );
   }
@@ -41,32 +70,12 @@ class SignupPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
+
           children: <Widget>[
             SizedBox(width: 10.0),
             _logo(),
             SizedBox(height: 20.0),
             _form(context),
-            Spacer(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center, //MainAxisAlignment.spaceAround
-              children: <Widget>[
-                FlatButton(
-                  child: Text("CREAR CUENTA"),
-                  textColor: Colors.white,
-                  onPressed: () {Navigator.pushReplacementNamed(context, 'home');},
-                ),
-                Container(
-                  color: Colors.white.withOpacity(0.1),
-                  width: 2.0,
-                  height: 15.0
-                ),
-                FlatButton(
-                  child: Text("RECORDAR CONTRASEÑA"),
-                  textColor: Colors.white,
-                  onPressed: () {},
-                ),
-              ],
-            )
           ],
         ),
       ),
@@ -112,13 +121,19 @@ class SignupPage extends StatelessWidget {
 
     return SingleChildScrollView(
       child: Container(
-        padding: EdgeInsets.only(bottom: 0.0, left: 80, right: 40),
+        padding: EdgeInsets.only(top: 0.0, bottom: 0.0, left: 130, right: 80),
         child: Column(
           children: <Widget>[
+            _inputName(bloc),
+            SizedBox(height: 10.0),
             _inputEmail(bloc),
             SizedBox(height: 10.0),
+            _inputUser(bloc),
+            SizedBox(height: 10.0),
             _inputPassword(bloc),
-            SizedBox(height: 20.0),
+            SizedBox(height: 10.0),
+            _inputPassword(bloc),
+            SizedBox(height: 10.0),
             SizedBox(
               width: double.infinity,
               child: _btnSubmit(bloc, context),
@@ -129,7 +144,87 @@ class SignupPage extends StatelessWidget {
     );
   }
 
+  Widget _inputName(LoginBloc bloc) {
+
+    return StreamBuilder(
+      stream: bloc.emailStream,
+      builder: (BuildContext context, AsyncSnapshot snapshot){
+        return TextField(
+          keyboardType: TextInputType.emailAddress,
+          cursorColor: Color.fromRGBO(39, 204, 192, 1.0),
+          style: TextStyle(
+              color: Color.fromRGBO(39, 204, 192, 1.0)
+          ),
+          decoration: InputDecoration(
+              //isDense: true,                      // Added this
+              //contentPadding: EdgeInsets.all(0),
+              counterStyle: TextStyle(
+                  color: Color.fromRGBO(255, 45, 102, 1.0)
+              ),
+              prefixIcon: Icon(
+                Icons.edit,
+                color: Color.fromRGBO(39, 204, 192, 1.0),
+              ),
+              hintText: "Nombre Completo",
+              hintStyle: TextStyle(
+                  color: Colors.white.withOpacity(0.5)
+              ),
+              counterText: snapshot.error,
+              // counterText: snapshot.data,
+              // errorText: snapshot.error,
+              border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(5.0),
+                  borderSide: BorderSide.none
+              ),
+              filled: true,
+              fillColor: Colors.white.withOpacity(0.1)
+          ),
+          onChanged: bloc.changeEmail,
+        );
+      },
+    );
+  }
+
   Widget _inputEmail(LoginBloc bloc) {
+
+    return StreamBuilder(
+      stream: bloc.emailStream,
+      builder: (BuildContext context, AsyncSnapshot snapshot){
+        return TextField(
+          keyboardType: TextInputType.emailAddress,
+          cursorColor: Color.fromRGBO(39, 204, 192, 1.0),
+          style: TextStyle(
+              color: Color.fromRGBO(39, 204, 192, 1.0)
+          ),
+          decoration: InputDecoration(
+              counterStyle: TextStyle(
+                  color: Color.fromRGBO(255, 45, 102, 1.0)
+              ),
+              prefixIcon: Icon(
+                Icons.alternate_email,
+                color: Color.fromRGBO(39, 204, 192, 1.0),
+              ),
+              hintText: "Correo electrónico",
+              hintStyle: TextStyle(
+                  color: Colors.white.withOpacity(0.5)
+              ),
+              counterText: snapshot.error,
+              // counterText: snapshot.data,
+              // errorText: snapshot.error,
+              border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(5.0),
+                  borderSide: BorderSide.none
+              ),
+              filled: true,
+              fillColor: Colors.white.withOpacity(0.1)
+          ),
+          onChanged: bloc.changeEmail,
+        );
+      },
+    );
+  }
+
+  Widget _inputUser(LoginBloc bloc) {
 
     return StreamBuilder(
       stream: bloc.emailStream,
@@ -217,7 +312,7 @@ class SignupPage extends StatelessWidget {
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 100.0, vertical: 19.0),
             child: Text(
-              "ENTRAR",
+              "Aceptar",
               style: TextStyle(
                 fontSize: 18.0,
               )
@@ -228,19 +323,19 @@ class SignupPage extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(5.0)
           ),
-          onPressed: snapshot.hasData ? () => _login(bloc, context) : null,
+          onPressed: snapshot.hasData ? () => _signup(bloc, context) : null,
         );
       },
     );
   }
 
-  _login(LoginBloc bloc, context) {
+  _signup(LoginBloc bloc, context) {
     print("================");
     print("Email: ${bloc.email}");
     print("Password: ${bloc.password}");
     print("================");
 
-    Navigator.pushReplacementNamed(context, '/inicio');
+    Navigator.pushReplacementNamed(context, 'login');
   }
 
 }

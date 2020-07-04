@@ -6,11 +6,8 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       body: Stack(
-
         children: <Widget>[
-
           _background(),
           _loginForm(context)
         ],
@@ -19,6 +16,7 @@ class LoginPage extends StatelessWidget {
       //resizeToAvoidBottomPadding: false,
     );
   }
+
 
   Widget _background() {
     return Container(

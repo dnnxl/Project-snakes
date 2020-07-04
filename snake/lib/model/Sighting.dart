@@ -6,8 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'Services.dart';
 
-File _image;
-
 class Sighting extends StatefulWidget {
 
   @override
@@ -32,6 +30,10 @@ class _SightingState extends State<Sighting> {
   var imagenes = 0;
   var modo1 = 1;
   var modo2 = 0;
+  var toolTipIcon = "Tomar otra foto";
+
+  List<File> images = [];
+
 
   bool checkBoxValueBite = false;
   bool checkBoxValueCall911 = false;
@@ -47,15 +49,17 @@ class _SightingState extends State<Sighting> {
   Future getImage() async {
     //print(position == null ? 'Unknown' : position.latitude.toString() + ', ' + position.longitude.toString());
     //setState(() {
-    if( modo1 == 1 || modo2 == 1){
-      var image = await ImagePicker.pickImage(source: ImageSource.camera);
-      _image = image;
-      imagenes = imagenes + 1;
-      print(imagenes);
+    if(images.length == 5){
+      toolTipIcon = "Máximo de fotos es 5";
+    }
+
+    if(( modo1 == 1 || modo2 == 1) && images.length < 5){//Control the amount of files to upload
+
+      images.add(await ImagePicker.pickImage(source: ImageSource.camera));
       modo1 = 0;
       modo2 = 0;
+
     }
-    //});
   }
 
   @override
@@ -68,6 +72,7 @@ class _SightingState extends State<Sighting> {
     )..init(context);
 
     getImage();
+
     return new Scaffold(
       backgroundColor: Colors.black,
       body:
@@ -244,7 +249,7 @@ class _SightingState extends State<Sighting> {
           modo2 = 1;
           getImage();
         },
-        tooltip: 'Pick Image',
+        tooltip: toolTipIcon,
         child: Icon(Icons.add_a_photo),
 
       ),

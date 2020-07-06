@@ -1,9 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:snake/bloc/provider.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 
-class SignupPage extends StatelessWidget {
+class SignupPage extends StatefulWidget {
+  State createState() =>  SignupPageState();
+}
+
+class SignupPageState extends State<SignupPage> {
+  Item selectedUser;
+  List<Item> users = <Item>[
+    const Item('Ciudadano',Icon(Icons.person_pin,color:  const Color.fromRGBO(39, 204, 192, 1.0),)),
+    const Item('Bombero',Icon(Icons.flare,color:  const Color.fromRGBO(39, 204, 192, 1.0),)),
+    const Item('Guardaparques',Icon(Icons.nature_people,color:  const Color.fromRGBO(39, 204, 192, 1.0),)),
+    const Item('Doctor',Icon(Icons.healing,color:  const Color.fromRGBO(39, 204, 192, 1.0),)),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +38,6 @@ class SignupPage extends StatelessWidget {
         ),
         ),
       ),
-
       floatingActionButton: Padding(
         padding: EdgeInsets.only(right: 500),
         child: FloatingActionButton(
@@ -128,11 +137,13 @@ class SignupPage extends StatelessWidget {
             SizedBox(height: 10.0),
             _inputEmail(bloc),
             SizedBox(height: 10.0),
+            _inputRole(bloc),
+            SizedBox(height: 10.0),
             _inputUser(bloc),
             SizedBox(height: 10.0),
             _inputPassword(bloc),
             SizedBox(height: 10.0),
-            _inputPassword(bloc),
+            _inputPasswordTwo(bloc),
             SizedBox(height: 10.0),
             SizedBox(
               width: double.infinity,
@@ -147,10 +158,10 @@ class SignupPage extends StatelessWidget {
   Widget _inputName(LoginBloc bloc) {
 
     return StreamBuilder(
-      stream: bloc.emailStream,
+      stream: bloc.nameStream,
       builder: (BuildContext context, AsyncSnapshot snapshot){
         return TextField(
-          keyboardType: TextInputType.emailAddress,
+          keyboardType: TextInputType.text,
           cursorColor: Color.fromRGBO(39, 204, 192, 1.0),
           style: TextStyle(
               color: Color.fromRGBO(39, 204, 192, 1.0)
@@ -179,7 +190,7 @@ class SignupPage extends StatelessWidget {
               filled: true,
               fillColor: Colors.white.withOpacity(0.1)
           ),
-          onChanged: bloc.changeEmail,
+          onChanged: bloc.changeName,
         );
       },
     );
@@ -224,10 +235,50 @@ class SignupPage extends StatelessWidget {
     );
   }
 
+  Widget _inputRole(LoginBloc bloc) {
+
+    return StreamBuilder(
+      stream: bloc.roleStream,
+      builder: (BuildContext context, AsyncSnapshot snapshot){
+        return DropdownButton<Item>(
+
+          hint:  Text("Seleccione un rol"),
+          style: TextStyle(
+              color: Colors.white,
+              fontSize: 17,
+          ),
+          value: selectedUser,
+          onChanged: (Item Value) {
+            setState(() {
+              selectedUser = Value;
+              bloc.changeRole;
+            });
+          },
+          items: users.map((Item user) {
+            return  DropdownMenuItem<Item>(
+              value: user,
+              child: Row(
+                children: <Widget>[
+                  user.icon,
+                  SizedBox(width: 225,),
+                  Text(
+                    user.name,
+                    style:  TextStyle(color: Colors.black),//Colors.white.withOpacity(0.5)),
+                  ),
+                ],
+              ),
+            );
+          }).toList(),
+        );
+      },
+
+    );
+  }
+
   Widget _inputUser(LoginBloc bloc) {
 
     return StreamBuilder(
-      stream: bloc.emailStream,
+      stream: bloc.userStream,
       builder: (BuildContext context, AsyncSnapshot snapshot){
         return TextField(
           keyboardType: TextInputType.emailAddress,
@@ -257,7 +308,7 @@ class SignupPage extends StatelessWidget {
             filled: true,
             fillColor: Colors.white.withOpacity(0.1)
           ),
-          onChanged: bloc.changeEmail,
+          onChanged: bloc.changeUser,
         );
       },
     );
@@ -303,6 +354,46 @@ class SignupPage extends StatelessWidget {
     );
   }
 
+  Widget _inputPasswordTwo(LoginBloc bloc) {
+
+    return StreamBuilder(
+      stream: bloc.passwordTwoStream,
+      builder: (BuildContext context, AsyncSnapshot snapshot){
+        return TextField(
+          obscureText: true,
+          keyboardType: TextInputType.emailAddress,
+          cursorColor: Color.fromRGBO(39, 204, 192, 1.0),
+          style: TextStyle(
+              color: Color.fromRGBO(39, 204, 192, 1.0)
+          ),
+          decoration: InputDecoration(
+              counterStyle: TextStyle(
+                  color: Color.fromRGBO(255, 45, 102, 1.0)
+              ),
+              prefixIcon: Icon(
+                Icons.lock_outline,
+                color: Color.fromRGBO(39, 204, 192, 1.0),
+              ),
+              hintText: "Contraseña",
+              hintStyle: TextStyle(
+                  color: Colors.white.withOpacity(0.5)
+              ),
+              counterText: snapshot.error,
+              // counterText: snapshot.data,
+              // errorText: snapshot.error,
+              border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(5.0),
+                  borderSide: BorderSide.none
+              ),
+              filled: true,
+              fillColor: Colors.white.withOpacity(0.1)
+          ),
+          onChanged: bloc.changePasswordTwo,
+        );
+      },
+    );
+  }
+
   Widget _btnSubmit(LoginBloc bloc, context) {
     return StreamBuilder(
       stream: bloc.formValidStream,
@@ -331,11 +422,21 @@ class SignupPage extends StatelessWidget {
 
   _signup(LoginBloc bloc, context) {
     print("================");
+    print("Name: ${bloc.name}");
     print("Email: ${bloc.email}");
+    print("Role: ${bloc.role}");
+    print("Role:" + selectedUser.name);
+    print("User: ${bloc.user}");
     print("Password: ${bloc.password}");
     print("================");
 
     Navigator.pushReplacementNamed(context, 'login');
   }
 
+}
+
+class Item {
+  const Item(this.name,this.icon);
+  final String name;
+  final Icon icon;
 }

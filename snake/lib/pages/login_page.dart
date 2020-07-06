@@ -6,6 +6,7 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       body: Stack(
         children: <Widget>[
           _background(),
@@ -130,7 +131,7 @@ class LoginPage extends StatelessWidget {
   Widget _inputEmail(LoginBloc bloc) {
 
     return StreamBuilder(
-      stream: bloc.emailStream,
+      stream: bloc.userStream,
       builder: (BuildContext context, AsyncSnapshot snapshot){
         return TextField(
           keyboardType: TextInputType.emailAddress,
@@ -160,7 +161,7 @@ class LoginPage extends StatelessWidget {
             filled: true,
             fillColor: Colors.white.withOpacity(0.1)
           ),
-          onChanged: bloc.changeEmail,
+          onChanged: bloc.changeUser
         );
       },
     );
@@ -234,7 +235,7 @@ class LoginPage extends StatelessWidget {
 
   _login(LoginBloc bloc, context) {
     print("================");
-    print("Email: ${bloc.email}");
+    print("Email: ${bloc.user}");
     print("Password: ${bloc.password}");
     print("================");
 

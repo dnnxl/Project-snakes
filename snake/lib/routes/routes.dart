@@ -4,10 +4,10 @@ import 'package:snake/pages/home_page.dart';
 import 'package:snake/pages/login_page.dart';
 import 'package:snake/pages/signup_page.dart';
 
-import 'package:snake/model/Begin.dart';
-import 'package:snake/model/InfoSections.dart';
-import 'package:snake/model/LearnSections.dart';
-import 'package:snake/model/Sighting.dart';
+import 'package:snake/content/Begin.dart';
+import 'package:snake/content/InfoSections.dart';
+import 'package:snake/content/LearnSections.dart';
+import 'package:snake/content/Sighting.dart';
 
 Map<String, WidgetBuilder> getRoutes() {
 

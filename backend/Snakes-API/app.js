@@ -60,9 +60,9 @@ app.get('/SnakesApi/Image/GetList', (req,res)=>{
 });
 
 //GET: Obtener una imagen dado su id.
-app.get('/SnakesApi/Image/Get/:NbImage', (req,res)=>{
-  const{NbImage} = req.params;
-  mysqlConnection.query('SELECT * FROM image where NbImage = ?' ,[NbImage], (err,rows,fields)=>{
+app.get('/SnakesApi/Image/Get/idImage', (req,res)=>{
+  const{idImage} = req.params;
+  mysqlConnection.query('SELECT * FROM image where idImage = ?' ,[idImage], (err,rows,fields)=>{
       if(!err){
           res.json(rows[0]);
       }else{
@@ -73,9 +73,9 @@ app.get('/SnakesApi/Image/Get/:NbImage', (req,res)=>{
 
 //POST: Insertar una nueva imagen.
 app.post('/SnakesApi/Image/Create',(req,res)=>{
-  const{SnakeType} = req.body;
-  const query = 'CALL imageAddOrEdit(?, ?);';
-  mysqlConnection.query(query,[0,SnakeType],(err,rows,fields)=>{
+  const{SnakeType, idSighting, value} = req.body;
+  const query = 'CALL imageAddOrEdit(?, ?, ?,?);';
+  mysqlConnection.query(query,[0,SnakeType, idSighting, value],(err,rows,fields)=>{
       if(!err){
           res.json({Status:'Image saved.'});
       }else{
@@ -85,11 +85,11 @@ app.post('/SnakesApi/Image/Create',(req,res)=>{
 });
 
 //PUT: Modificar una imagen dado su id.
-app.put('/SnakesApi/Image/Edit/:NbImage',(req,res)=>{
-  const{SnakeType} = req.body;
-  const {NbImage} =  req.params;
-  const query = 'CALL imageAddOrEdit(?, ?);';
-  mysqlConnection.query(query,[NbImage,SnakeType],(err,rows,fields)=>{
+app.put('/SnakesApi/Image/Edit/:idImage',(req,res)=>{
+  const{SnakeType, idSighting, value} = req.body;
+  const {idImage} =  req.params;
+  const query = 'CALL imageAddOrEdit(?, ?, ?, ?);';
+  mysqlConnection.query(query,[idImage,SnakeType,idSighting, value],(err,rows,fields)=>{
       if(!err){
           res.json({Status:'Image updated.'});
       }else{
@@ -99,9 +99,9 @@ app.put('/SnakesApi/Image/Edit/:NbImage',(req,res)=>{
 });
 
 //DELETE: Eliminar una imagen dado su id.
-app.delete('/SnakesApi/Image/Delete/:NbImage',(req,res)=>{
-  const{NbImage} = req.params;
-  mysqlConnection.query('DELETE FROM image where NbImage = ?', [NbImage], (err,rows,fields)=>{
+app.delete('/SnakesApi/Image/Delete/:idImage',(req,res)=>{
+  const{idImage} = req.params;
+  mysqlConnection.query('DELETE FROM image where idImage = ?', [idImage], (err,rows,fields)=>{
       if(!err){
           res.json({status: 'Image deleted.'});
       }else{
@@ -252,7 +252,7 @@ app.get('/SnakesApi/Sighting/GetList', (req,res)=>{
 //GET: 
 app.get('/SnakesApi/Sighting/Get/:id', (req,res)=>{
   const{id} = req.params;
-  mysqlConnection.query('SELECT * FROM sighting where NbSighting = ?' ,[id], (err,rows,fields)=>{
+  mysqlConnection.query('SELECT * FROM sighting where idSighting = ?' ,[id], (err,rows,fields)=>{
       if(!err){
           res.json(rows[0]);
       }else{
@@ -263,9 +263,9 @@ app.get('/SnakesApi/Sighting/Get/:id', (req,res)=>{
 
 //POST: 
 app.post('/SnakesApi/Sighting/Create',(req,res)=>{
-  const{UserName,UserContact, XCoordinate, YCoordinate, TxtComent, ImageId,infoId} = req.body;
+  const{Description, DateSighting, XCoordinate, YCoordinate, Date, UserId, Call, Bite} = req.body;
   const query = 'CALL sightingAddOrEdit(?,?,?,?,?,?,?,?,?);';
-  mysqlConnection.query(query,[0,UserName,UserContact,null, XCoordinate, YCoordinate, TxtComent, ImageId,infoId],(err,rows,fields)=>{
+  mysqlConnection.query(query,[0,Description, DateSighting, XCoordinate, YCoordinate, Date, UserId, Call, Bite],(err,rows,fields)=>{
       if(!err){
           res.json({Status:'Sighting was saved.'});
       }else{
@@ -276,10 +276,10 @@ app.post('/SnakesApi/Sighting/Create',(req,res)=>{
 
 //PUT:
 app.put('/SnakesApi/Sighting/Edit/:id',(req,res)=>{
-  const{UserName,UserContact,DTSighting, XCoordinate, YCoordinate, TxtComent, ImageId,infoId} = req.body;
+  const{Description, DateSighting, XCoordinate, YCoordinate, Date, UserId, Call, Bite} = req.body;
   const {id} =  req.params;
   const query = 'CALL sightingAddOrEdit(?,?,?,?,?,?,?,?,?);';
-  mysqlConnection.query(query,[id,UserName,UserContact,DTSighting, XCoordinate, YCoordinate, TxtComent, ImageId,infoId],(err,rows,fields)=>{
+  mysqlConnection.query(query,[id,Description, DateSighting, XCoordinate, YCoordinate, Date, UserId, Call, Bite],(err,rows,fields)=>{
       if(!err){
           res.json({Status:'Sighting was updated.'});
       }else{
@@ -291,7 +291,7 @@ app.put('/SnakesApi/Sighting/Edit/:id',(req,res)=>{
 //DELETE: 
 app.delete('/SnakesApi/Sighting/Delete/:id',(req,res)=>{
   const{id} = req.params;
-  mysqlConnection.query('DELETE FROM sighting where NbSighting = ?', [id], (err,rows,fields)=>{
+  mysqlConnection.query('DELETE FROM sighting where idSighting = ?', [id], (err,rows,fields)=>{
       if(!err){
           res.json({status: 'Sighting was deleted.'});
       }else{
@@ -426,6 +426,73 @@ app.delete('/SnakesApi/Specialist/Delete/:NbSpecialist',(req,res)=>{
       }
   });
 });
+
+// Users
+
+//GET: 
+app.get('/SnakesApi/Users/GetList', (req,res)=>{
+    mysqlConnection.query('SELECT * FROM User', (err,rows,fields)=>{
+        if(!err){
+            res.json(rows);
+        }else{
+            console.log(err);
+        }
+    })
+  });
+  
+  //POST: 
+  app.post('/SnakesApi/Users/Authenticate', (req,res)=>{
+    const{UserName,Password} = req.body;
+    mysqlConnection.query('SELECT * FROM user where username = ? and password = ?' ,[UserName,Password], (err,rows,fields)=>{
+        if(!err){
+            res.json(rows[0]);
+        }else{
+            console.log(err);
+        }
+    });
+  });
+  
+  //POST: 
+  app.post('/SnakesApi/Users/Create',(req,res)=>{
+    const{UserName,Mail, Name, Password, Rol} = req.body;
+    const query = 'CALL userAddEdit(?,?,?,?,?,?);';
+    mysqlConnection.query(query,[0,UserName,Mail, Name, Password, Rol],(err,rows,fields)=>{
+        if(!err){
+            res.json({Status:'User was saved.'});
+        }else{
+            console.log(err);
+        }
+    });
+  });
+  
+  //PUT:
+  app.put('/SnakesApi/Users/Edit/:id',(req,res)=>{
+    const{UserName,Mail, Name, Password, Rol} = req.body;
+    const {id} =  req.params;
+    const query = 'CALL userAddEdit(?,?,?,?,?,?);';
+    mysqlConnection.query(query,[UserId,UserName,Mail, Name, Password, Rol],(err,rows,fields)=>{
+        if(!err){
+            res.json({Status:'User was updated.'});
+        }else{
+            console.log(err);
+        }
+    });
+  });
+  
+  //DELETE: 
+  app.delete('/SnakesApi/Users/Delete/:id',(req,res)=>{
+    const{id} = req.params;
+    mysqlConnection.query('DELETE FROM users where idUser = ?', [id], (err,rows,fields)=>{
+        if(!err){
+            res.json({status: 'User was deleted.'});
+        }else{
+            console.log(err);
+        }
+    });
+  });
+  
+
+
 
 // Check connect
 handleDisconnect();

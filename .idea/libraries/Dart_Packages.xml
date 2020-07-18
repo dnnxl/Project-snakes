@@ -163,6 +163,13 @@
             </list>
           </value>
         </entry>
+        <entry key="intl">
+          <value>
+            <list>
+              <option value="$PROJECT_DIR$/../Descargas/flutter/.pub-cache/hosted/pub.dartlang.org/intl-0.15.8/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="location_permissions">
           <value>
             <list>
@@ -355,6 +362,7 @@
       <root url="file://$PROJECT_DIR$/../Descargas/flutter/.pub-cache/hosted/pub.dartlang.org/image-2.1.4/lib" />
       <root url="file://$PROJECT_DIR$/../Descargas/flutter/.pub-cache/hosted/pub.dartlang.org/image_picker-0.6.6+1/lib" />
       <root url="file://$PROJECT_DIR$/../Descargas/flutter/.pub-cache/hosted/pub.dartlang.org/image_picker_platform_interface-1.0.0/lib" />
+      <root url="file://$PROJECT_DIR$/../Descargas/flutter/.pub-cache/hosted/pub.dartlang.org/intl-0.15.8/lib" />
       <root url="file://$PROJECT_DIR$/../Descargas/flutter/.pub-cache/hosted/pub.dartlang.org/location_permissions-2.0.5/lib" />
       <root url="file://$PROJECT_DIR$/../Descargas/flutter/.pub-cache/hosted/pub.dartlang.org/matcher-0.12.6/lib" />
       <root url="file://$PROJECT_DIR$/../Descargas/flutter/.pub-cache/hosted/pub.dartlang.org/meta-1.1.8/lib" />

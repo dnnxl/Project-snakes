@@ -240,6 +240,7 @@ class LoginPage extends StatelessWidget {
     print("================");
 
     Navigator.pushReplacementNamed(context, '/inicio');
+
   }
 
 }

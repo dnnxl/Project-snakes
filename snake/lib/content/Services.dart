@@ -3,8 +3,20 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class Services {
+/*
+  POST:
+  https://snake-api-mysql.herokuapp.com/SnakesApi/Users/Create
 
-  void postData(var avistamiento) async {
+
+  PUT:
+  https://snake-api-mysql.herokuapp.com/SnakesApi/Users/Edit/:id
+
+
+  GET:
+  https://snake-api-mysql.herokuapp.com/SnakesApi/Users/GetList
+  */
+
+  void postDataSighting(var avistamiento) async {
     var url = "https://snake-api-mysql.herokuapp.com/SnakesApi/Sighting/Create";
 
     var response = await post(Uri.parse(url),
@@ -13,6 +25,18 @@ class Services {
           "Content-Type": "application/json"
         },
         body: jsonEncode(avistamiento),
+        encoding: Encoding.getByName("utf-8"));
+  }
+
+  void postDataCreateUser(var usuario) async {
+    var url = "https://snake-api-mysql.herokuapp.com/SnakesApi/Users/Create";
+
+    var response = await post(Uri.parse(url),
+        headers: {
+          //"Accept": "application/json",
+          "Content-Type": "application/json"
+        },
+        body: jsonEncode(usuario),
         encoding: Encoding.getByName("utf-8"));
   }
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:snake/bloc/provider.dart';
+import 'package:snake/content/Services.dart';
 
 
 class SignupPage extends StatefulWidget {
@@ -431,6 +432,17 @@ class SignupPageState extends State<SignupPage> {
     print("================");
 
     Navigator.pushReplacementNamed(context, 'login');
+
+    var usuario = {
+      "UserName": bloc.name,
+      "UserEmail": bloc.email,
+      "UserRole": selectedUser.name,
+      "User": bloc.user,
+      "ImageId": bloc.password
+    };
+
+    Services service = new Services();
+    service.postDataCreateUser(usuario);
   }
 
 }

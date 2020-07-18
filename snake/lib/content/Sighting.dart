@@ -5,6 +5,9 @@ import 'package:geolocator/geolocator.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'Services.dart';
+import 'package:intl/intl.dart';
+import 'dart:convert';
+
 
 class Sighting extends StatefulWidget {
 
@@ -16,23 +19,22 @@ class _SightingState extends State<Sighting> {
   Position position;
 
   var latitud = 0.0;
-
   var longitud = 0.0;
-
   var nombre = "";
-
   var descripcion = "";
-
   var correo = "";
-
   var fecha = DateTime.now();
 
-  var imagenes = 0;
+
   var modo1 = 1;
   var modo2 = 0;
   var toolTipIcon = "Tomar otra foto";
 
+  bool primeraParte = true;
+
   List<File> images = [];
+  List<String> imagesBase64 = [];
+  var imagesCounter = 0;
 
 
   bool checkBoxValueBite = false;
@@ -56,9 +58,50 @@ class _SightingState extends State<Sighting> {
     if(( modo1 == 1 || modo2 == 1) && images.length < 5){//Control the amount of files to upload
 
       images.add(await ImagePicker.pickImage(source: ImageSource.camera));
+      imagesCounter = imagesCounter + 1;
       modo1 = 0;
       modo2 = 0;
+    }
 
+    if(primeraParte){//Valida para realizar la primera parte del avistamiento.
+
+      position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+      nombre = myControllerName.text;
+      correo = myControllerEmail.text;
+      latitud = position.latitude;
+      longitud = position.longitude;
+      String formattedDate = DateFormat('yyyy-MM-dd').format(fecha);
+      //CAMBIAR LUEGO
+      var userId = 1;
+
+      var imagen = images.elementAt(0);
+      String base64Image = base64Encode(imagen.readAsBytesSync());
+
+
+      var avistamiento = {
+        "Fecha": formattedDate,
+        "UserId": userId,
+        "XCoordinate": longitud.toString(),
+        "YCoordinate": latitud.toString(),
+        "ImageId": base64Image
+      };
+
+      Services service = new Services();
+      service.postDataSighting(avistamiento);
+      //Navigator.pushNamed(context, "/inicio");
+
+      primeraParte = false;
+    }
+  }
+
+  void convertToBase64(){
+    String base64Image;
+    var image;
+
+    for(int i = 1; i<=imagesCounter; i++ ){
+      image = images.elementAt(i);
+      base64Image = base64Encode(image.readAsBytesSync());
+      imagesBase64.add(base64Image);
     }
   }
 
@@ -196,28 +239,25 @@ class _SightingState extends State<Sighting> {
 
                         onPressed: () async {
 
-                          position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-                          nombre = myControllerName.text;
+                          //position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+                          //nombre = myControllerName.text;
                           descripcion = myControllerDescription.text;
-                          correo = myControllerEmail.text;
+                          //correo = myControllerEmail.text;
 
-                          latitud = position.latitude;
-                          longitud = position.longitude;
+                          //latitud = position.latitude;
+                          //longitud = position.longitude;
 
-
+                          convertToBase64();
 
                           var avistamiento = {
-                            "UserName": nombre,
-                            "UserContact": correo,
-                            "XCoordinate": longitud.toString(),
-                            "YCoordinate": latitud.toString(),
+                            "Bite": checkBoxValueBite,
+                            "Call911": checkBoxValueCall911,
                             "TxtComent": descripcion,
-                            "ImageId": null,
-                            "infoId": null
+                            "ImageId": imagesBase64,
                           };
 
                           Services service = new Services();
-                          service.postData(avistamiento);
+                          service.postDataSighting(avistamiento);
                           Navigator.pushNamed(context, "/inicio");
                         },
                         child: SizedBox(

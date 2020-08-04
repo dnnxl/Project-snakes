@@ -480,7 +480,7 @@ void _mensajeRegistroExitoso(context) {
             RaisedButton(
               color: Color.fromRGBO(39, 204, 192, 1.0),
               child: Text("Aceptar", style: TextStyle(color: Colors.white),),
-              onPressed: (){ Navigator.of(context).pop(); Navigator.pushReplacementNamed(context, 'login');},
+              onPressed: (){ Navigator.of(context).pop(); Navigator.of(context).pushNamedAndRemoveUntil('login', (Route<dynamic> route) => false);},
             )
           ],
         );

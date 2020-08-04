@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:snake/bloc/provider.dart';
 import 'Services.dart';
 import 'package:intl/intl.dart';
 import 'dart:convert';
@@ -126,6 +127,13 @@ class _SightingState extends State<Sighting> {
 
   @override
   Widget build(BuildContext context) {
+    final bloc = Provider.of(context);
+
+    print("================");
+    print("Usuario: ${bloc.user}");
+    print("Password: ${bloc.password}");
+    print("================");
+
     double defaultScreenWidth = 180.0;
     double defaultScreenHeight = 360.0;  ScreenUtil.instance = ScreenUtil(
       width: defaultScreenWidth,

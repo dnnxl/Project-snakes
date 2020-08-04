@@ -221,9 +221,11 @@ class LoginPage extends StatelessWidget {
   }
 
   Widget _btnSubmit(LoginBloc bloc, context) {
+
     return StreamBuilder(
       stream: bloc.formValidStream,
       builder: (BuildContext context, AsyncSnapshot snapshot){
+
         return RaisedButton(
           color: Color.fromRGBO(39, 204, 192, 1.0),
           child: Container(
@@ -236,11 +238,10 @@ class LoginPage extends StatelessWidget {
             ),
           ),
           elevation: 2.0,
-          textColor: Colors.white,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(5.0)
           ),
-          onPressed: snapshot.hasData ? () => _login(bloc, context): null,
+          onPressed: (snapshot.hasData) ? () => _login(bloc, context): null,
         );
       },
     );
@@ -266,7 +267,7 @@ class LoginPage extends StatelessWidget {
               RaisedButton(
                 color: Color.fromRGBO(39, 204, 192, 1.0),
                 child: Text("Aceptar", style: TextStyle(color: Colors.white),),
-                onPressed: (){ Navigator.of(context).pop(); Navigator.pushReplacementNamed(context, '/inicio');},
+                onPressed: (){ Navigator.of(context).pop(); Navigator.of(context).pushNamedAndRemoveUntil('/inicio', (Route<dynamic> route) => false);},
               )
             ],
           );

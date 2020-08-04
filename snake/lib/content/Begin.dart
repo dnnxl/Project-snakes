@@ -14,6 +14,7 @@ class Begin extends StatelessWidget {
       allowFontScaling: true,
     )..init(context);
 
+
     final bloc = Provider.of(context);
 
     Color c1 = const Color(0xFFFFFF);
@@ -119,7 +120,9 @@ class Begin extends StatelessWidget {
         foregroundColor: Colors.black,
         tooltip: "Salir",
         onPressed: () async {
-          Navigator.pushNamed(context, "login");
+          bloc.dispose();
+          Navigator.of(context).pushNamedAndRemoveUntil('login', (Route<dynamic> route) => false);
+          //Navigator.pushNamed(context, "login");
         },
         child: Icon(Icons.exit_to_app),
 

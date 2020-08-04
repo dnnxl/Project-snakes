@@ -10,7 +10,6 @@ class Validators {
       } else {
         sink.addError("Usuario inválido");
       }
-
     }
   );
 

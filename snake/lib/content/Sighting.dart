@@ -88,17 +88,36 @@ class _SightingState extends State<Sighting> {
 
       Services service = new Services();
       service.postDataSighting(avistamiento);
-      //Navigator.pushNamed(context, "/inicio");
+
 
       primeraParte = false;
     }
+  }
+
+  void _mensajeAvistamientoExitoso(context) {
+    showDialog(
+        context: context,
+        builder: (buildcontext) {
+          return AlertDialog(
+            title: Text("Avistamiento exitoso"),
+            content: Text("Gracias por su reporte."),
+            actions: <Widget>[
+              RaisedButton(
+                color: Color.fromRGBO(39, 204, 192, 1.0),
+                child: Text("Aceptar", style: TextStyle(color: Colors.white),),
+                onPressed: (){ Navigator.of(context).pop(); Navigator.pushReplacementNamed(context, '/inicio');},
+              )
+            ],
+          );
+        }
+    );
   }
 
   void convertToBase64(){
     String base64Image;
     var image;
 
-    for(int i = 1; i<=imagesCounter; i++ ){
+    for(int i = 1; i<imagesCounter; i++ ){
       image = images.elementAt(i);
       base64Image = base64Encode(image.readAsBytesSync());
       imagesBase64.add(base64Image);
@@ -212,7 +231,7 @@ class _SightingState extends State<Sighting> {
                         decoration: const InputDecoration(
                           icon: Icon(Icons.insert_comment),
                           hintText: 'Ingrese la descripción',
-                          labelText: 'Descripción',
+                          labelText: 'Descripción y comentarios',
 
                         ),
                         controller: myControllerDescription,
@@ -258,7 +277,8 @@ class _SightingState extends State<Sighting> {
 
                           Services service = new Services();
                           service.postDataSighting(avistamiento);
-                          Navigator.pushNamed(context, "/inicio");
+                          //Navigator.pushNamed(context, "/inicio");
+                          _mensajeAvistamientoExitoso(context);
                         },
                         child: SizedBox(
                           width: ScreenUtil.instance.setHeight(70.0),

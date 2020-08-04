@@ -6,18 +6,30 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
-      body: Stack(
-        children: <Widget>[
-          _background(),
-          _loginForm(context)
-        ],
+      backgroundColor: Color.fromRGBO(37, 40, 52, 1.0),
+      body: SingleChildScrollView( child: Container(
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment(1.0, -1.0),
+                end: Alignment(1.0, 1.0),
+                colors: <Color> [
+                  Color.fromRGBO(43, 47, 62, 1.0),
+                  Color.fromRGBO(37, 40, 52, 1.0)
+                ]
+            )
+        ),
+        child: Column(
+          children: <Widget>[
+            //_background(),
+            _loginForm(context)
+          ],
+        ),
       ),
-      resizeToAvoidBottomInset: false
+      ),
+      //resizeToAvoidBottomInset: false
       //resizeToAvoidBottomPadding: false,
     );
   }
-
 
   Widget _background() {
     return Container(
@@ -45,10 +57,16 @@ class LoginPage extends StatelessWidget {
             _logo(),
             SizedBox(height: 40.0),
             _form(context),
-            Spacer(),
+            //Spacer(),
             Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center, //MainAxisAlignment.spaceAround
               children: <Widget>[
+                Container(
+                    color: Colors.white.withOpacity(0.1),
+                    width: 2.0,
+                    height: 15.0
+                ),
                 FlatButton(
                   child: Text("CREAR CUENTA"),
                   textColor: Colors.white,
@@ -59,13 +77,8 @@ class LoginPage extends StatelessWidget {
                   width: 2.0,
                   height: 15.0
                 ),
-                FlatButton(
-                  child: Text("RECORDAR CONTRASEÑA"),
-                  textColor: Colors.white,
-                  onPressed: () {},
-                ),
               ],
-            )
+            ),
           ],
         ),
       ),
@@ -227,7 +240,7 @@ class LoginPage extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(5.0)
           ),
-          onPressed: snapshot.hasData ? () => _login(bloc, context) : null,
+          onPressed: snapshot.hasData ? () => _login(bloc, context): null,
         );
       },
     );
@@ -235,12 +248,30 @@ class LoginPage extends StatelessWidget {
 
   _login(LoginBloc bloc, context) {
     print("================");
-    print("Email: ${bloc.user}");
+    print("Usuario: ${bloc.user}");
     print("Password: ${bloc.password}");
     print("================");
 
-    Navigator.pushReplacementNamed(context, '/inicio');
+    _mensajeAcceso(bloc, context);
+  }
 
+  void _mensajeAcceso(bloc, context) {
+    showDialog(
+        context: context,
+        builder: (buildcontext) {
+          return AlertDialog(
+            title: Text("Bienvenido"),
+            content: Text("Recuerde respetar la vida silvestre."),
+            actions: <Widget>[
+              RaisedButton(
+                color: Color.fromRGBO(39, 204, 192, 1.0),
+                child: Text("Aceptar", style: TextStyle(color: Colors.white),),
+                onPressed: (){ Navigator.of(context).pop(); Navigator.pushReplacementNamed(context, '/inicio');},
+              )
+            ],
+          );
+        }
+    );
   }
 
 }

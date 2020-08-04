@@ -13,13 +13,13 @@ class SignupPageState extends State<SignupPage> {
     const Item('Ciudadano',Icon(Icons.person_pin,color:  const Color.fromRGBO(39, 204, 192, 1.0),)),
     const Item('Bombero',Icon(Icons.flare,color:  const Color.fromRGBO(39, 204, 192, 1.0),)),
     const Item('Guardaparques',Icon(Icons.nature_people,color:  const Color.fromRGBO(39, 204, 192, 1.0),)),
-    const Item('Doctor',Icon(Icons.healing,color:  const Color.fromRGBO(39, 204, 192, 1.0),)),
+    const Item('Médico',Icon(Icons.healing,color:  const Color.fromRGBO(39, 204, 192, 1.0),)),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Color.fromRGBO(37, 40, 52, 1.0),
       body: SingleChildScrollView( child: Container(
         decoration: BoxDecoration(
             gradient: LinearGradient(
@@ -51,7 +51,6 @@ class SignupPageState extends State<SignupPage> {
             Navigator.pushNamed(context, "login");
           },
           child: Icon(Icons.arrow_back),
-
       ),
     ),
       //resizeToAvoidBottomInset: false
@@ -264,7 +263,7 @@ class SignupPageState extends State<SignupPage> {
                   SizedBox(width: 225,),
                   Text(
                     user.name,
-                    style:  TextStyle(color: Colors.black),//Colors.white.withOpacity(0.5)),
+                    style:  TextStyle(color: Color.fromRGBO(39, 204, 192, 1.0)),//Colors.white.withOpacity(0.5)),
                   ),
                 ],
               ),
@@ -429,9 +428,8 @@ class SignupPageState extends State<SignupPage> {
     print("Role:" + selectedUser.name);
     print("User: ${bloc.user}");
     print("Password: ${bloc.password}");
+    print("Password2: ${bloc.passwordTwo}");
     print("================");
-
-    Navigator.pushReplacementNamed(context, 'login');
 
     var usuario = {
       "UserName": bloc.name,
@@ -441,10 +439,53 @@ class SignupPageState extends State<SignupPage> {
       "ImageId": bloc.password
     };
 
-    Services service = new Services();
-    service.postDataCreateUser(usuario);
+    if(bloc.password == bloc.passwordTwo){
+      Services service = new Services();
+      service.postDataCreateUser(usuario);
+      _mensajeRegistroExitoso(context);
+    }else{
+      _mensajeError(context);
+    }
   }
+}
 
+
+void _mensajeError(context) {
+  showDialog(
+      context: context,
+      builder: (buildcontext) {
+        return AlertDialog(
+          title: Text("Error"),
+          content: Text("¡Las contraseñas no coinciden.!"),
+          actions: <Widget>[
+            RaisedButton(
+              color: Colors.red,
+              child: Text("Aceptar", style: TextStyle(color: Colors.white),),
+              onPressed: (){ Navigator.of(context).pop();},
+            )
+          ],
+        );
+      }
+  );
+}
+
+void _mensajeRegistroExitoso(context) {
+  showDialog(
+      context: context,
+      builder: (buildcontext) {
+        return AlertDialog(
+          title: Text("Bienvenido"),
+          content: Text("¡Usuario registrado correctamente.!"),
+          actions: <Widget>[
+            RaisedButton(
+              color: Color.fromRGBO(39, 204, 192, 1.0),
+              child: Text("Aceptar", style: TextStyle(color: Colors.white),),
+              onPressed: (){ Navigator.of(context).pop(); Navigator.pushReplacementNamed(context, 'login');},
+            )
+          ],
+        );
+      }
+  );
 }
 
 class Item {

@@ -10,10 +10,10 @@ class SignupPage extends StatefulWidget {
 class SignupPageState extends State<SignupPage> {
   Item selectedUser;
   List<Item> users = <Item>[
-    const Item('Ciudadano',Icon(Icons.person_pin,color:  const Color.fromRGBO(39, 204, 192, 1.0),)),
-    const Item('Bombero',Icon(Icons.flare,color:  const Color.fromRGBO(39, 204, 192, 1.0),)),
-    const Item('Guardaparques',Icon(Icons.nature_people,color:  const Color.fromRGBO(39, 204, 192, 1.0),)),
-    const Item('Médico',Icon(Icons.healing,color:  const Color.fromRGBO(39, 204, 192, 1.0),)),
+    const Item('Ciudadano',Icon(Icons.person_pin,color:  const Color.fromRGBO(0, 0, 0, 1.0),)),
+    const Item('Bombero',Icon(Icons.flare,color:  const Color.fromRGBO(0, 0, 0, 1.0),)),
+    const Item('Guardaparques',Icon(Icons.nature_people,color:  const Color.fromRGBO(0, 0, 0, 1.0),)),
+    const Item('Médico',Icon(Icons.healing,color:  const Color.fromRGBO(0, 0, 0, 1.0),)),
   ];
 
   @override
@@ -26,8 +26,10 @@ class SignupPageState extends State<SignupPage> {
                 begin: Alignment(1.0, -1.0),
                 end: Alignment(1.0, 1.0),
                 colors: <Color> [
-                  Color.fromRGBO(43, 47, 62, 1.0),
-                  Color.fromRGBO(37, 40, 52, 1.0)
+                  /*Color.fromRGBO(43, 47, 62, 1.0),
+                  Color.fromRGBO(37, 40, 52, 1.0)*/
+                  Color.fromRGBO(25, 53, 30, 1.0),
+                  Color.fromRGBO(25, 53, 30, 1.0)
                 ]
             )
         ),
@@ -162,9 +164,11 @@ class SignupPageState extends State<SignupPage> {
       builder: (BuildContext context, AsyncSnapshot snapshot){
         return TextField(
           keyboardType: TextInputType.text,
-          cursorColor: Color.fromRGBO(39, 204, 192, 1.0),
+          //cursorColor: Color.fromRGBO(39, 204, 192, 1.0),
+          cursorColor: Color.fromRGBO(255, 255, 255, 1.0),
           style: TextStyle(
-              color: Color.fromRGBO(39, 204, 192, 1.0)
+              //color: Color.fromRGBO(255, 255, 255, 1.0)
+              color: Color.fromRGBO(255, 255, 255, 1.0)
           ),
           decoration: InputDecoration(
               //isDense: true,                      // Added this
@@ -174,7 +178,8 @@ class SignupPageState extends State<SignupPage> {
               ),
               prefixIcon: Icon(
                 Icons.edit,
-                color: Color.fromRGBO(39, 204, 192, 1.0),
+                //color: Color.fromRGBO(39, 204, 192, 1.0),
+                  color: Color.fromRGBO(255, 255, 255, 1.0)
               ),
               hintText: "Nombre Completo",
               hintStyle: TextStyle(
@@ -203,9 +208,11 @@ class SignupPageState extends State<SignupPage> {
       builder: (BuildContext context, AsyncSnapshot snapshot){
         return TextField(
           keyboardType: TextInputType.emailAddress,
-          cursorColor: Color.fromRGBO(39, 204, 192, 1.0),
+          //cursorColor: Color.fromRGBO(39, 204, 192, 1.0),
+            cursorColor: Color.fromRGBO(255, 255, 255, 1.0),
           style: TextStyle(
-              color: Color.fromRGBO(39, 204, 192, 1.0)
+              //color: Color.fromRGBO(39, 204, 192, 1.0)
+              color: Color.fromRGBO(255, 255, 255, 1.0)
           ),
           decoration: InputDecoration(
               counterStyle: TextStyle(
@@ -213,7 +220,8 @@ class SignupPageState extends State<SignupPage> {
               ),
               prefixIcon: Icon(
                 Icons.alternate_email,
-                color: Color.fromRGBO(39, 204, 192, 1.0),
+                //color: Color.fromRGBO(39, 204, 192, 1.0),
+                  color: Color.fromRGBO(255, 255, 255, 1.0)
               ),
               hintText: "Correo electrónico",
               hintStyle: TextStyle(
@@ -241,10 +249,12 @@ class SignupPageState extends State<SignupPage> {
       stream: bloc.roleStream,
       builder: (BuildContext context, AsyncSnapshot snapshot){
         return DropdownButton<Item>(
+          //dropdownColor: Color.fromRGBO(25, 53, 30, 1.0),
+          //focusColor: Color.fromRGBO(25, 53, 30, 1.0),
 
           hint:  Text("Seleccione un rol"),
           style: TextStyle(
-              color: Colors.white,
+              color: Color.fromRGBO(255, 255, 255, 1.0),
               fontSize: 17,
           ),
           value: selectedUser,
@@ -254,6 +264,7 @@ class SignupPageState extends State<SignupPage> {
               bloc.changeRole;
             });
           },
+
           items: users.map((Item user) {
             return  DropdownMenuItem<Item>(
               value: user,
@@ -263,7 +274,8 @@ class SignupPageState extends State<SignupPage> {
                   SizedBox(width: 225,),
                   Text(
                     user.name,
-                    style:  TextStyle(color: Color.fromRGBO(39, 204, 192, 1.0)),//Colors.white.withOpacity(0.5)),
+                    //style:  TextStyle(color: Color.fromRGBO(39, 204, 192, 1.0)),//Colors.white.withOpacity(0.5)),
+                    style:  TextStyle(color: Color.fromRGBO(255, 255, 255, 1.0)),//Colors.white.withOpacity(0.5)),
                   ),
                 ],
               ),
@@ -282,9 +294,11 @@ class SignupPageState extends State<SignupPage> {
       builder: (BuildContext context, AsyncSnapshot snapshot){
         return TextField(
           keyboardType: TextInputType.emailAddress,
-          cursorColor: Color.fromRGBO(39, 204, 192, 1.0),
+          //cursorColor: Color.fromRGBO(39, 204, 192, 1.0),
+            cursorColor: Color.fromRGBO(255, 255, 255, 1.0),
           style: TextStyle(
-            color: Color.fromRGBO(39, 204, 192, 1.0)
+            //color: Color.fromRGBO(39, 204, 192, 1.0)
+              color: Color.fromRGBO(255, 255, 255, 1.0)
           ),
           decoration: InputDecoration(
             counterStyle: TextStyle(
@@ -292,7 +306,8 @@ class SignupPageState extends State<SignupPage> {
             ),
             prefixIcon: Icon(
               Icons.person_outline,
-              color: Color.fromRGBO(39, 204, 192, 1.0),
+              //color: Color.fromRGBO(39, 204, 192, 1.0),
+                color: Color.fromRGBO(255, 255, 255, 1.0),
             ),
             hintText: "Usuario",
             hintStyle: TextStyle(
@@ -322,9 +337,11 @@ class SignupPageState extends State<SignupPage> {
         return TextField(
           obscureText: true,
           keyboardType: TextInputType.emailAddress,
-          cursorColor: Color.fromRGBO(39, 204, 192, 1.0),
+          //cursorColor: Color.fromRGBO(39, 204, 192, 1.0),
+            cursorColor: Color.fromRGBO(255, 255, 255, 1.0),
           style: TextStyle(
-            color: Color.fromRGBO(39, 204, 192, 1.0)
+            //color: Color.fromRGBO(39, 204, 192, 1.0)
+              color: Color.fromRGBO(255, 255, 255, 1.0)
           ),
           decoration: InputDecoration(
             counterStyle: TextStyle(
@@ -332,7 +349,8 @@ class SignupPageState extends State<SignupPage> {
             ),
             prefixIcon: Icon(
               Icons.lock_outline,
-              color: Color.fromRGBO(39, 204, 192, 1.0),
+              //color: Color.fromRGBO(39, 204, 192, 1.0),
+                color: Color.fromRGBO(255, 255, 255, 1.0),
             ),
             hintText: "Contraseña",
             hintStyle: TextStyle(
@@ -362,9 +380,11 @@ class SignupPageState extends State<SignupPage> {
         return TextField(
           obscureText: true,
           keyboardType: TextInputType.emailAddress,
-          cursorColor: Color.fromRGBO(39, 204, 192, 1.0),
+          //cursorColor: Color.fromRGBO(39, 204, 192, 1.0),
+            cursorColor: Color.fromRGBO(255, 255, 255, 1.0),
           style: TextStyle(
-              color: Color.fromRGBO(39, 204, 192, 1.0)
+              //color: Color.fromRGBO(39, 204, 192, 1.0)
+              color: Color.fromRGBO(255, 255, 255, 1.0)
           ),
           decoration: InputDecoration(
               counterStyle: TextStyle(
@@ -372,7 +392,8 @@ class SignupPageState extends State<SignupPage> {
               ),
               prefixIcon: Icon(
                 Icons.lock_outline,
-                color: Color.fromRGBO(39, 204, 192, 1.0),
+                //color: Color.fromRGBO(39, 204, 192, 1.0),
+                color: Color.fromRGBO(255, 255, 255, 1.0),
               ),
               hintText: "Contraseña",
               hintStyle: TextStyle(
@@ -399,7 +420,8 @@ class SignupPageState extends State<SignupPage> {
       stream: bloc.formValidStream,
       builder: (BuildContext context, AsyncSnapshot snapshot){
         return RaisedButton(
-          color: Color.fromRGBO(39, 204, 192, 1.0),
+          //color: Color.fromRGBO(39, 204, 192, 1.0),
+          color: Color.fromRGBO(121, 138, 61, 1.0),
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 100.0, vertical: 19.0),
             child: Text(
@@ -478,7 +500,8 @@ void _mensajeRegistroExitoso(context) {
           content: Text("¡Usuario registrado correctamente.!"),
           actions: <Widget>[
             RaisedButton(
-              color: Color.fromRGBO(39, 204, 192, 1.0),
+              //color: Color.fromRGBO(39, 204, 192, 1.0),
+              color: Color.fromRGBO(121, 138, 61, 1.0),
               child: Text("Aceptar", style: TextStyle(color: Colors.white),),
               onPressed: (){ Navigator.of(context).pop(); Navigator.of(context).pushNamedAndRemoveUntil('login', (Route<dynamic> route) => false);},
             )

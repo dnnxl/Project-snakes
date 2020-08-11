@@ -6,15 +6,18 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromRGBO(37, 40, 52, 1.0),
+      //backgroundColor: Color.fromRGBO(37, 40, 52, 1.0),
+      backgroundColor: Color.fromRGBO(25, 53, 30, 1.0),
       body: SingleChildScrollView( child: Container(
         decoration: BoxDecoration(
             gradient: LinearGradient(
                 begin: Alignment(1.0, -1.0),
                 end: Alignment(1.0, 1.0),
                 colors: <Color> [
-                  Color.fromRGBO(43, 47, 62, 1.0),
-                  Color.fromRGBO(37, 40, 52, 1.0)
+                  /*Color.fromRGBO(43, 47, 62, 1.0),
+                  Color.fromRGBO(37, 40, 52, 1.0)*/
+                  Color.fromRGBO(25, 53, 30, 1.0),
+                  Color.fromRGBO(25, 53, 30, 1.0)
                 ]
             )
         ),
@@ -148,17 +151,20 @@ class LoginPage extends StatelessWidget {
       builder: (BuildContext context, AsyncSnapshot snapshot){
         return TextField(
           keyboardType: TextInputType.emailAddress,
-          cursorColor: Color.fromRGBO(39, 204, 192, 1.0),
+          //cursorColor: Color.fromRGBO(39, 204, 192, 1.0),
+            cursorColor: Color.fromRGBO(255, 255, 255, 1.0),
           style: TextStyle(
-            color: Color.fromRGBO(39, 204, 192, 1.0)
+            //color: Color.fromRGBO(39, 204, 192, 1.0)
+            color: Color.fromRGBO(255, 255, 255, 1.0),
           ),
           decoration: InputDecoration(
             counterStyle: TextStyle(
-              color: Color.fromRGBO(255, 45, 102, 1.0)
+              color: Color.fromRGBO(255, 255, 255, 1.0)
             ),
             prefixIcon: Icon(
               Icons.person_outline,
-              color: Color.fromRGBO(39, 204, 192, 1.0),
+              //color: Color.fromRGBO(39, 204, 192, 1.0),
+              color: Color.fromRGBO(255, 255, 255, 1.0),
             ),
             hintText: "Usuario",
             hintStyle: TextStyle(
@@ -188,9 +194,11 @@ class LoginPage extends StatelessWidget {
         return TextField(
           obscureText: true,
           keyboardType: TextInputType.emailAddress,
-          cursorColor: Color.fromRGBO(39, 204, 192, 1.0),
+          //cursorColor: Color.fromRGBO(39, 204, 192, 1.0),
+          cursorColor: Color.fromRGBO(255, 255, 255, 1.0),
           style: TextStyle(
-            color: Color.fromRGBO(39, 204, 192, 1.0)
+            //color: Color.fromRGBO(39, 204, 192, 1.0)
+            color: Color.fromRGBO(255, 255, 255, 1.0)
           ),
           decoration: InputDecoration(
             counterStyle: TextStyle(
@@ -198,7 +206,8 @@ class LoginPage extends StatelessWidget {
             ),
             prefixIcon: Icon(
               Icons.lock_outline,
-              color: Color.fromRGBO(39, 204, 192, 1.0),
+              //color: Color.fromRGBO(39, 204, 192, 1.0),
+              color: Color.fromRGBO(255, 255, 255, 1.0),
             ),
             hintText: "Contraseña",
             hintStyle: TextStyle(
@@ -227,13 +236,14 @@ class LoginPage extends StatelessWidget {
       builder: (BuildContext context, AsyncSnapshot snapshot){
 
         return RaisedButton(
-          color: Color.fromRGBO(39, 204, 192, 1.0),
+          //color: Color.fromRGBO(39, 204, 192, 1.0),
+          color: Color.fromRGBO(121, 138, 61, 1.0),
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 100.0, vertical: 19.0),
             child: Text(
               "ENTRAR",
               style: TextStyle(
-                fontSize: 18.0,
+                fontSize: 18.0, color: Color.fromRGBO(255, 255, 255, 1.0)
               )
             ),
           ),

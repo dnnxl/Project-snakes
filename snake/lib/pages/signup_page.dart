@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import 'package:snake/bloc/provider.dart';
 import 'package:snake/content/Services.dart';
 
@@ -251,7 +252,6 @@ class SignupPageState extends State<SignupPage> {
         return DropdownButton<Item>(
           //dropdownColor: Color.fromRGBO(25, 53, 30, 1.0),
           //focusColor: Color.fromRGBO(25, 53, 30, 1.0),
-
           hint:  Text("Seleccione un rol"),
           style: TextStyle(
               color: Color.fromRGBO(255, 255, 255, 1.0),
@@ -275,7 +275,7 @@ class SignupPageState extends State<SignupPage> {
                   Text(
                     user.name,
                     //style:  TextStyle(color: Color.fromRGBO(39, 204, 192, 1.0)),//Colors.white.withOpacity(0.5)),
-                    style:  TextStyle(color: Color.fromRGBO(255, 255, 255, 1.0)),//Colors.white.withOpacity(0.5)),
+                    style:  TextStyle(color: Color.fromRGBO(0, 0, 0, 1.0)),//Colors.white.withOpacity(0.5)),
                   ),
                 ],
               ),
@@ -454,17 +454,18 @@ class SignupPageState extends State<SignupPage> {
     print("================");
 
     var usuario = {
-      "UserName": bloc.name,
-      "UserEmail": bloc.email,
-      "UserRole": selectedUser.name,
-      "User": bloc.user,
-      "ImageId": bloc.password
+      "Name": bloc.name,
+      "Mail": bloc.email,
+      "Rol": selectedUser.name,
+      "UserName": bloc.user,
+      "Password": bloc.password
     };
 
     if(bloc.password == bloc.passwordTwo){
       Services service = new Services();
       service.postDataCreateUser(usuario);
       _mensajeRegistroExitoso(context);
+      bloc.dispose();
     }else{
       _mensajeError(context);
     }

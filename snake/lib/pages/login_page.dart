@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:snake/bloc/provider.dart';
+import 'package:snake/content/Services.dart';
 
 class LoginPage extends StatelessWidget {
 
@@ -73,7 +74,7 @@ class LoginPage extends StatelessWidget {
                 FlatButton(
                   child: Text("CREAR CUENTA"),
                   textColor: Colors.white,
-                  onPressed: () {Navigator.pushReplacementNamed(context, 'signup');},
+                  onPressed: () { Navigator.of(context).pushNamedAndRemoveUntil('signup', (Route<dynamic> route) => false);},
                 ),
                 Container(
                   color: Colors.white.withOpacity(0.1),
@@ -263,7 +264,19 @@ class LoginPage extends StatelessWidget {
     print("Password: ${bloc.password}");
     print("================");
 
-    _mensajeAcceso(bloc, context);
+    var usuario = {
+      "UserName": bloc.user,
+      "Password": bloc.password
+    };
+
+    Services service = new Services();
+    service.authenticateUser(bloc.user, bloc.password);
+
+    if (service.authenticateUser(bloc.user, bloc.password) == true){
+      _mensajeAcceso(bloc, context);
+    }else{
+      _mensajeErrorAcceso(bloc, context);
+    }
   }
 
   void _mensajeAcceso(bloc, context) {
@@ -278,6 +291,25 @@ class LoginPage extends StatelessWidget {
                 color: Color.fromRGBO(39, 204, 192, 1.0),
                 child: Text("Aceptar", style: TextStyle(color: Colors.white),),
                 onPressed: (){ Navigator.of(context).pop(); Navigator.of(context).pushNamedAndRemoveUntil('/inicio', (Route<dynamic> route) => false);},
+              )
+            ],
+          );
+        }
+    );
+  }
+
+  void _mensajeErrorAcceso(bloc, context) {
+    showDialog(
+        context: context,
+        builder: (buildcontext) {
+          return AlertDialog(
+            title: Text("Bienvenido"),
+            content: Text("Recuerde respetar la vida silvestre."),
+            actions: <Widget>[
+              RaisedButton(
+                color: Colors.red,
+                child: Text("Aceptar", style: TextStyle(color: Colors.white),),
+                onPressed: (){ Navigator.of(context).pop();},
               )
             ],
           );

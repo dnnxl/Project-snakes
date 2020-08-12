@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ffi';
 import 'package:rxdart/rxdart.dart';
 
 import 'package:snake/bloc/validators.dart';
@@ -53,6 +54,8 @@ class LoginBloc with Validators {
 
   dispose() {
 
+    //this._userController = null;
+    //this._passwordController = null;
     _nameController?.close();
     _emailController?.close();
     _roleController?.close();

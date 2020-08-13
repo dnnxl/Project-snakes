@@ -22,19 +22,19 @@
 
 ## Mobile Application
 It is needed the following dependencies to run the project:
-### flutter:
-#### sdk: flutter
-### camera:
-### path_provider:
-### path:
-### image_picker: ^0.6.1+11
-### geolocator: ^5.3.1
-### flutter_launcher_icons: ^0.7.4
-### http: ^0.12.1
-### flutter_screenutil: ^0.5.2
-### intl: ^0.15.7
-### rxdart: ^0.22.0
-### cupertino_icons: ^0.1.2
+- flutter:
+ sdk: flutter
+- camera:
+- path_provider:
+- path:
+- image_picker: ^0.6.1+11
+- geolocator: ^5.3.1
+- flutter_launcher_icons: ^0.7.4
+- http: ^0.12.1
+- flutter_screenutil: ^0.5.2
+- intl: ^0.15.7
+- rxdart: ^0.22.0
+- cupertino_icons: ^0.1.2
 
 ## Example (Optional)
 

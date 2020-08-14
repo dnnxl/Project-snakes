@@ -50,8 +50,7 @@ class _SightingState extends State<Sighting> {
 
 
   Future getImage() async {
-    //print(position == null ? 'Unknown' : position.latitude.toString() + ', ' + position.longitude.toString());
-    //setState(() {
+
     if(images.length == 5){
       toolTipIcon = "Máximo de fotos es 5";
     }
@@ -68,28 +67,26 @@ class _SightingState extends State<Sighting> {
 
       position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
       nombre = myControllerName.text;
-      correo = myControllerEmail.text;
       latitud = position.latitude;
       longitud = position.longitude;
       String formattedDate = DateFormat('yyyy-MM-dd').format(fecha);
-      //CAMBIAR LUEGO
-      var userId = 1;
+
+      final bloc = Provider.of(context);
 
       var imagen = images.elementAt(0);
       String base64Image = base64Encode(imagen.readAsBytesSync());
-
-
+      print(formattedDate);
+      print(imagen);
+      print(base64Image);
       var avistamiento = {
-        "Fecha": formattedDate,
-        "UserId": userId,
+        "file": base64Image,
         "XCoordinate": longitud.toString(),
         "YCoordinate": latitud.toString(),
-        "ImageId": base64Image
+        "Date": formattedDate,
+        "UserName": bloc.user
       };
-
       Services service = new Services();
-      service.postDataSighting(avistamiento);
-
+      service.postDataSighting(base64Image, longitud.toString(), latitud.toString(), formattedDate, bloc.user);
 
       primeraParte = false;
     }
@@ -129,10 +126,10 @@ class _SightingState extends State<Sighting> {
   Widget build(BuildContext context) {
     final bloc = Provider.of(context);
 
-    print("================");
+    /*print("================");
     print("Usuario: ${bloc.user}");
     print("Password: ${bloc.password}");
-    print("================");
+    print("================");*/
 
     double defaultScreenWidth = 180.0;
     double defaultScreenHeight = 360.0;  ScreenUtil.instance = ScreenUtil(
@@ -284,7 +281,7 @@ class _SightingState extends State<Sighting> {
                           };
 
                           Services service = new Services();
-                          service.postDataSighting(avistamiento);
+                          //service.postDataSighting(avistamiento);
                           //Navigator.pushNamed(context, "/inicio");
                           _mensajeAvistamientoExitoso(context);
                         },

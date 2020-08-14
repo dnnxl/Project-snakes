@@ -16,16 +16,24 @@ class Services {
   https://snake-api-mysql.herokuapp.com/SnakesApi/Users/GetList
   */
 
-  void postDataSighting(var avistamiento) async {
-    var url = "https://snake-api-mysql.herokuapp.com/SnakesApi/Sighting/Create";
-
+  void postDataSighting(pBase64Image, pLongitud, pLatitud, pFormattedDate, pUser) async {
+    //var url = "https://snake-api-mysql.herokuapp.com/SnakesApi/Sighting/Create";
+    var url = "https://snake-api-mysql.herokuapp.com/SnakesApi/InitializeSighting";
     var response = await post(Uri.parse(url),
-        headers: {
+        /*headers: {
           //"Accept": "application/json",
-          "Content-Type": "application/json"
+          "Content-Type": "multipart/form-data",
+        },*/
+        body: {
+          "file": pBase64Image,
+          "XCoordinate": pLongitud,
+          "YCoordinate": pLatitud,
+          "Date": pFormattedDate,
+          "UserName": pUser
         },
-        body: jsonEncode(avistamiento),
-        encoding: Encoding.getByName("utf-8"));
+        //encoding: Encoding.getByName("utf-8")
+        );
+        print(response.statusCode);
   }
 
   void postDataCreateUser(var usuario) async {
@@ -40,8 +48,6 @@ class Services {
         encoding: Encoding.getByName("utf-8"));
   }
 
-
-  //Future<User> authenticateUser(String username, String password) async {
   Future<bool> authenticateUser(String username, String password) async {
     final http.Response response = await http.post(
       'https://snake-api-mysql.herokuapp.com/SnakesApi/Users/Authenticate',
@@ -53,12 +59,13 @@ class Services {
         'Password': password
       }),
     );
-    if (response.statusCode == 201) {
-      // If the server did return a 201 CREATED response,
+    if (response.statusCode != 401) { //401 acceso no autorizado
+      // If the server did return a 200 CREATED response,
       // then parse the JSON.
-      return true;//(json.decode(response.body));
+      //print (json.decode(response.body));
+      return true;
     } else {
-      // If the server did not return a 201 CREATED response,
+      // If the server did not return a 200 CREATED response,
       // then throw an exception.
       //throw Exception('Failed to authenticate user');
       return false;

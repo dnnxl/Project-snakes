@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:snake/bloc/provider.dart';
+import 'package:http/http.dart';
+import 'package:http/http.dart' as http;
 import 'package:snake/content/Services.dart';
 
 class LoginPage extends StatelessWidget {
@@ -258,7 +260,7 @@ class LoginPage extends StatelessWidget {
     );
   }
 
-  _login(LoginBloc bloc, context) {
+  _login(LoginBloc bloc, context) async {
     print("================");
     print("Usuario: ${bloc.user}");
     print("Password: ${bloc.password}");
@@ -270,9 +272,9 @@ class LoginPage extends StatelessWidget {
     };
 
     Services service = new Services();
-    service.authenticateUser(bloc.user, bloc.password);
+    Future<bool> respuesta = service.authenticateUser(bloc.user, bloc.password);
 
-    if (service.authenticateUser(bloc.user, bloc.password) == true){
+    if((await respuesta) == true){
       _mensajeAcceso(bloc, context);
     }else{
       _mensajeErrorAcceso(bloc, context);
@@ -303,8 +305,8 @@ class LoginPage extends StatelessWidget {
         context: context,
         builder: (buildcontext) {
           return AlertDialog(
-            title: Text("Bienvenido"),
-            content: Text("Recuerde respetar la vida silvestre."),
+            title: Text("Error de Acceso"),
+            content: Text("Credenciales incorrectos"),
             actions: <Widget>[
               RaisedButton(
                 color: Colors.red,

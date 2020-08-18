@@ -5,7 +5,8 @@ import 'package:http/http.dart' as http;
 import 'package:snake/content/Services.dart';
 
 class LoginPage extends StatelessWidget {
-
+  var bandera1 = false;
+  var bandera2 = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -183,7 +184,9 @@ class LoginPage extends StatelessWidget {
             filled: true,
             fillColor: Colors.white.withOpacity(0.1)
           ),
-          onChanged: bloc.changeUser
+          onChanged: bloc.changeUser,
+          onSubmitted:(String h){bloc.changeUser; bandera1 = true;},
+
         );
       },
     );
@@ -226,7 +229,9 @@ class LoginPage extends StatelessWidget {
             filled: true,
             fillColor: Colors.white.withOpacity(0.1)
           ),
-          onChanged: bloc.changePassword,
+          onChanged:bloc.changePassword,
+          onSubmitted:(String h){bloc.changePassword;bandera2 = true;},
+
         );
       },
     );
@@ -254,7 +259,16 @@ class LoginPage extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(5.0)
           ),
-          onPressed: (snapshot.hasData) ? () => _login(bloc, context): null,
+          onPressed: /*bandera1 && bandera2 && (snapshot.hasData) ? () => _login(bloc, context): null,*/
+          //   foo == 1 || foo == 2 ? doSomething : doSomething
+              () {
+            if (bandera1 && bandera2 && (snapshot.hasData)){
+              _login(bloc, context);
+            }else{
+              mensajeCamposVacios(bloc, context);
+            }
+
+          },
         );
       },
     );
@@ -275,13 +289,13 @@ class LoginPage extends StatelessWidget {
     Future<bool> respuesta = service.authenticateUser(bloc.user, bloc.password);
 
     if((await respuesta) == true){
-      _mensajeAcceso(bloc, context);
+      _mensajeAccesoExitoso(bloc, context);
     }else{
       _mensajeErrorAcceso(bloc, context);
     }
   }
 
-  void _mensajeAcceso(bloc, context) {
+  void _mensajeAccesoExitoso(bloc, context) {
     showDialog(
         context: context,
         builder: (buildcontext) {
@@ -290,7 +304,8 @@ class LoginPage extends StatelessWidget {
             content: Text("Recuerde respetar la vida silvestre."),
             actions: <Widget>[
               RaisedButton(
-                color: Color.fromRGBO(39, 204, 192, 1.0),
+                //color: Color.fromRGBO(39, 204, 192, 1.0),
+                color: Color.fromRGBO(121, 138, 61, 1.0),
                 child: Text("Aceptar", style: TextStyle(color: Colors.white),),
                 onPressed: (){ Navigator.of(context).pop(); Navigator.of(context).pushNamedAndRemoveUntil('/inicio', (Route<dynamic> route) => false);},
               )
@@ -307,6 +322,25 @@ class LoginPage extends StatelessWidget {
           return AlertDialog(
             title: Text("Error de Acceso"),
             content: Text("Credenciales incorrectos"),
+            actions: <Widget>[
+              RaisedButton(
+                color: Colors.red,
+                child: Text("Aceptar", style: TextStyle(color: Colors.white),),
+                onPressed: (){ Navigator.of(context).pop();},
+              )
+            ],
+          );
+        }
+    );
+  }
+
+  void mensajeCamposVacios(bloc, context) {
+    showDialog(
+        context: context,
+        builder: (buildcontext) {
+          return AlertDialog(
+            title: Text("Error de Acceso"),
+            content: Text("Debe llenar todos los campos"),
             actions: <Widget>[
               RaisedButton(
                 color: Colors.red,

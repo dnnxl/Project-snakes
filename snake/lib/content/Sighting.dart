@@ -101,7 +101,7 @@ class _SightingState extends State<Sighting> {
             content: Text("Gracias por su reporte."),
             actions: <Widget>[
               RaisedButton(
-                color: Color.fromRGBO(39, 204, 192, 1.0),
+                color: Color.fromRGBO(121, 138, 61, 1.0),
                 child: Text("Aceptar", style: TextStyle(color: Colors.white),),
                 onPressed: (){ Navigator.of(context).pop(); Navigator.pushReplacementNamed(context, '/inicio');},
               )
